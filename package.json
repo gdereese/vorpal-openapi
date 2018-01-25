@@ -1,7 +1,7 @@
 {
   "name": "vorpal-swagger",
   "version": "0.1.0",
-  "description": "",
+  "description": "Vorpal extension that creates a CLI for invoking API endpoints defined with a Swagger specification.",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
