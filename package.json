@@ -1,0 +1,24 @@
+{
+  "name": "vorpal-swagger",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "lint": "tslint",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gary DeReese Jr",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^9.3.0",
+    "tslint": "^5.9.1",
+    "typescript": "^2.6.2"
+  },
+  "dependencies": {
+    "axios": "^0.17.1",
+    "lodash": "^4.17.4",
+    "swagger-client": "^3.4.6",
+    "vorpal": "^1.12.0"
+  }
+}
