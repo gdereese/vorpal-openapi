@@ -34,9 +34,8 @@ export function build(info: CommandInfo, vorpal, options: Options): any[] {
         };
 
         return client.execute(executeOptions)
-          .then((response) => {
-            const foo = 'bar';
-          });
+          .then((response) => handleSuccessResponse(response, vorpal))
+          .catch((error) => handleErrorResponse(error, vorpal));
       });
   });
 
@@ -55,4 +54,18 @@ function buildCommandString(info: CommandInfo, options: Options): string {
   }
 
   return commandString;
+}
+
+function handleErrorResponse(error, vorpal) {
+  vorpal.log();
+  vorpal.log(vorpal.chalk.red(error.response.status + ' ' + error.response.statusText));
+  vorpal.log(error.response.data);
+  vorpal.log();
+}
+
+function handleSuccessResponse(response, vorpal) {
+  vorpal.log();
+  vorpal.log(vorpal.chalk.green(response.status + ' ' + response.statusText));
+  vorpal.log(response.data);
+  vorpal.log();
 }
