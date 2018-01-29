@@ -2,6 +2,9 @@ import * as _ from 'lodash';
 import Swagger = require('swagger-client');
 
 import { CommandInfo } from './command-info';
+import * as commandOptionNames from './command-option-names';
+import { OperationCommandAction } from './operation-command-action';
+import { OperationCommandValidator } from './operation-command-validator';
 import { Options } from './options';
 
 function actionArgsToRequestParams(args, info: CommandInfo, options: Options) {
@@ -14,6 +17,12 @@ export function build(info: CommandInfo, vorpal, options: Options): any[] {
   const commandDescription = info.operation.summary;
   const command = vorpal.command(commandString, commandDescription);
 
+  // add option for response content type (based on values in produces array)
+  if (info.operation.produces && info.operation.produces.length > 0) {
+    command.option('--' + commandOptionNames.RESPONSE_CONTENT_TYPE +
+      ' <mime-type>', 'desired MIME type of response body', info.operation.produces);
+  }
+
   // add option for each optional parameter,
   // for enum parameters, add an autocomplete for each possible value
   const optionalParameters = _.filter(info.operation.parameters, { required: false });
@@ -24,20 +33,12 @@ export function build(info: CommandInfo, vorpal, options: Options): any[] {
     command.option(optionString, optionDescription, optionAutocomplete);
   }
 
-  const swaggerClientPromise = Swagger({ spec: options.spec });
-  command.action((args) => {
-    swaggerClientPromise
-      .then((client) => {
-        const executeOptions = {
-          operationId: info.operation.operationId,
-          parameters: args,
-        };
+  const validator = new OperationCommandValidator(info, vorpal);
+  command.validate((args) => validator.validate(args));
 
-        return client.execute(executeOptions)
-          .then((response) => handleSuccessResponse(response, vorpal))
-          .catch((error) => handleErrorResponse(error, vorpal));
-      });
-  });
+  const swaggerClientPromise = Swagger({ spec: options.spec });
+  const action = new OperationCommandAction(swaggerClientPromise, info, vorpal);
+  command.action((args) => action.run(args));
 
   return command;
 }
@@ -54,18 +55,4 @@ function buildCommandString(info: CommandInfo, options: Options): string {
   }
 
   return commandString;
-}
-
-function handleErrorResponse(error, vorpal) {
-  vorpal.log();
-  vorpal.log(vorpal.chalk.red(error.response.status + ' ' + error.response.statusText));
-  vorpal.log(error.response.data);
-  vorpal.log();
-}
-
-function handleSuccessResponse(response, vorpal) {
-  vorpal.log();
-  vorpal.log(vorpal.chalk.green(response.status + ' ' + response.statusText));
-  vorpal.log(response.data);
-  vorpal.log();
 }

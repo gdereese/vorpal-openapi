@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 
-import * as aboutCommand from './about-command';
+import { AboutCommandAction } from './about-command-action';
 import * as commandBuilder from './command-builder';
 import * as commandGroupTypes from './command-group-types';
 import { CommandInfo } from './command-info';
@@ -34,11 +34,10 @@ export function build(vorpal, options: Options) {
   vorpal.localStorage(localStorageString);
 
   if (options.spec.info) {
+    const aboutCommandAction = new AboutCommandAction(options.spec.info, vorpal);
     vorpal
       .command('about', 'Displays information about the API.')
-      .action((args, cb) => {
-        aboutCommand.run(vorpal, options.spec.info, cb);
-      });
+      .action((args, cb) => aboutCommandAction.run(args, cb));
   }
 
   // TODO: add commands for setting auth
