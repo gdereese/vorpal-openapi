@@ -6,6 +6,7 @@ import { OperationCommandAction } from './operation-command-action';
 import { OperationCommandInfo } from './operation-command-info';
 import { OperationCommandValidator } from './operation-command-validator';
 import { Options } from './options';
+import { TextBuilder } from './text-builder';
 
 export class OperationCommandBuilder {
   constructor(private vorpal, private options: Options) {
@@ -13,7 +14,14 @@ export class OperationCommandBuilder {
 
   public build(commandInfo: OperationCommandInfo) {
     const commandString = this.buildCommandString(commandInfo, this.options);
-    const commandDescription = commandInfo.operation.summary;
+
+    const commandDescriptionBuilder = new TextBuilder();
+    commandDescriptionBuilder.addParagraph(commandInfo.operation.summary);
+    if (commandInfo.operation.description && commandInfo.operation.description.length > 0) {
+      commandDescriptionBuilder.addParagraph(commandInfo.operation.description, '\n\n  ');
+    }
+    const commandDescription = commandDescriptionBuilder.toString();
+
     const command = this.vorpal.command(commandString, commandDescription);
 
     // add option for response content type (based on values in produces array)
