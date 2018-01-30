@@ -1,6 +1,5 @@
 import * as _ from 'lodash';
 
-import { CommandInfo } from './command-info';
 import * as stringUtils from './string-utils';
 import { TextBuilder } from './text-builder';
 

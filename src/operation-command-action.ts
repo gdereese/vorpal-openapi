@@ -1,8 +1,8 @@
-import { CommandInfo } from './command-info';
 import * as commandOptionNames from './command-option-names';
+import { OperationCommandInfo } from './operation-command-info';
 
 export class OperationCommandAction {
-  constructor(private swaggerClientPromise, private commandInfo: CommandInfo, private vorpal) {
+  constructor(private swaggerClientPromise, private commandInfo: OperationCommandInfo, private vorpal) {
   }
 
   public run(args) {

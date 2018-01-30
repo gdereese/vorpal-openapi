@@ -1,9 +1,9 @@
 import * as _ from 'lodash';
 
 import { AboutCommandAction } from './about-command-action';
-import * as commandBuilder from './command-builder';
 import * as commandGroupTypes from './command-group-types';
-import { CommandInfo } from './command-info';
+import { OperationCommandBuilder } from './operation-command-builder';
+import { OperationCommandInfo } from './operation-command-info';
 import { Options } from './options';
 import * as stringUtils from './string-utils';
 import { TextBuilder } from './text-builder';
@@ -57,18 +57,19 @@ export function build(vorpal, options: Options) {
 
   // sort commands by command string parts;
   // this will ensure any that should be grouped together are listed consecutively
-  const sortedCommandInfos = _.sortBy(commandInfos, (info: CommandInfo) => {
-    return info.commandStringParts[0] + ' ' + (info.commandStringParts[1] || '');
+  const sortedCommandInfos = _.sortBy(commandInfos, (commandInfo: OperationCommandInfo) => {
+    return commandInfo.commandStringParts[0] + ' ' + (commandInfo.commandStringParts[1] || '');
   });
 
+  const operationCommandBuilder = new OperationCommandBuilder(vorpal, options);
   for (const info of sortedCommandInfos) {
-    const command = commandBuilder.build(info, vorpal, options);
+    const command = operationCommandBuilder.build(info);
   }
 
   writeSplash(vorpal, options);
 }
 
-function getCommandInfosByPaths(spec): CommandInfo[] {
+function getCommandInfosByPaths(spec): OperationCommandInfo[] {
   const infos = [];
 
   const pathKeys = _.keys(spec.paths);
@@ -96,7 +97,7 @@ function getCommandInfosByPaths(spec): CommandInfo[] {
   return infos;
 }
 
-function getCommandInfosByTags(spec): CommandInfo[] {
+function getCommandInfosByTags(spec): OperationCommandInfo[] {
   const infos = [];
 
   const pathKeys = _.keys(spec.paths);
@@ -123,7 +124,7 @@ function getCommandInfosByTags(spec): CommandInfo[] {
   return infos;
 }
 
-function getCommandInfosForDefault(spec): CommandInfo[] {
+function getCommandInfosForDefault(spec): OperationCommandInfo[] {
   const infos = [];
 
   const pathKeys = _.keys(spec.paths);

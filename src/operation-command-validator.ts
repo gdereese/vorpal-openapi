@@ -1,10 +1,10 @@
 import * as _ from 'lodash';
 
-import { CommandInfo } from './command-info';
 import * as commandOptionNames from './command-option-names';
+import { OperationCommandInfo } from './operation-command-info';
 
 export class OperationCommandValidator {
-  constructor(private commandInfo: CommandInfo, private vorpal) {
+  constructor(private commandInfo: OperationCommandInfo, private vorpal) {
   }
 
   public validate(args) {
