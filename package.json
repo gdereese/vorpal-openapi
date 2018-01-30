@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
+    "license-check": "abogado .",
     "lint": "tslint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,6 +13,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^9.3.0",
+    "abogado": "^0.2.0",
     "tslint": "^5.9.1",
     "typescript": "^2.6.2"
   },
