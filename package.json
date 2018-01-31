@@ -13,7 +13,7 @@
   "author": "Gary DeReese Jr",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^9.3.0",
+    "@types/node": "^9.4.0",
     "abogado": "^0.3.0",
     "prettier": "^1.10.2",
     "tslint": "5.8.0",
@@ -23,7 +23,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "lodash": "^4.17.4",
-    "swagger-client": "^3.4.6",
+    "swagger-client": "^3.4.7",
     "vorpal": "^1.12.0"
   }
 }
