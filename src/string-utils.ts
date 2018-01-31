@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 
 export function joinNonEmpty(strings: string[], delimiter: string): string {
-  const nonEmptyStrings = _.filter(strings, (str) => {
+  const nonEmptyStrings = _.filter(strings, str => {
     return !_.isNil(str);
   });
 

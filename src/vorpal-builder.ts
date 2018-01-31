@@ -34,7 +34,10 @@ export function build(vorpal, options: Options) {
   vorpal.localStorage(localStorageString);
 
   if (options.spec.info) {
-    const aboutCommandAction = new AboutCommandAction(options.spec.info, vorpal);
+    const aboutCommandAction = new AboutCommandAction(
+      options.spec.info,
+      vorpal
+    );
     vorpal
       .command('about', 'Displays information about the API.')
       .action((args, cb) => aboutCommandAction.run(args, cb));
@@ -57,9 +60,16 @@ export function build(vorpal, options: Options) {
 
   // sort commands by command string parts;
   // this will ensure any that should be grouped together are listed consecutively
-  const sortedCommandInfos = _.sortBy(commandInfos, (commandInfo: OperationCommandInfo) => {
-    return commandInfo.commandStringParts[0] + ' ' + (commandInfo.commandStringParts[1] || '');
-  });
+  const sortedCommandInfos = _.sortBy(
+    commandInfos,
+    (commandInfo: OperationCommandInfo) => {
+      return (
+        commandInfo.commandStringParts[0] +
+        ' ' +
+        (commandInfo.commandStringParts[1] || '')
+      );
+    }
+  );
 
   const operationCommandBuilder = new OperationCommandBuilder(vorpal, options);
   for (const info of sortedCommandInfos) {
@@ -86,10 +96,10 @@ function getCommandInfosByPaths(spec): OperationCommandInfo[] {
       infos.push({
         commandStringParts: [
           _.kebabCase(pathKeyParts[0]),
-          _.kebabCase(operation.operationId),
+          _.kebabCase(operation.operationId)
         ],
         operation,
-        pathKey,
+        pathKey
       });
     }
   }
@@ -112,10 +122,10 @@ function getCommandInfosByTags(spec): OperationCommandInfo[] {
         infos.push({
           commandStringParts: [
             _.kebabCase(tagName),
-            _.kebabCase(operation.operationId),
+            _.kebabCase(operation.operationId)
           ],
           operation,
-          pathKey,
+          pathKey
         });
       }
     }
@@ -136,11 +146,9 @@ function getCommandInfosForDefault(spec): OperationCommandInfo[] {
       const operation = path[operationKey];
 
       infos.push({
-        commandStringParts: [
-          _.kebabCase(operation.operationId),
-        ],
+        commandStringParts: [_.kebabCase(operation.operationId)],
         operation,
-        pathKey,
+        pathKey
       });
     }
   }
@@ -155,8 +163,13 @@ function writeSplash(vorpal, options: Options) {
 
   splashBuilder.addLine();
 
-  const version = options.spec.info.version ? 'Version ' + options.spec.info.version : '';
-  const heading = stringUtils.joinNonEmpty([options.spec.info.title, version], '\n');
+  const version = options.spec.info.version
+    ? 'Version ' + options.spec.info.version
+    : '';
+  const heading = stringUtils.joinNonEmpty(
+    [options.spec.info.title, version],
+    '\n'
+  );
   splashBuilder.addParagraph(heading);
 
   splashBuilder.addLine();

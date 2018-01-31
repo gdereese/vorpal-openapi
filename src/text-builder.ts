@@ -12,7 +12,11 @@ export class TextBuilder {
   }
 
   public addParagraph(text: string, lineDelimiter: string = '\n\n') {
-    if (this.text && this.text.length > 0 && !_.every(this.text, (char) => char === '\n')) {
+    if (
+      this.text &&
+      this.text.length > 0 &&
+      !_.every(this.text, char => char === '\n')
+    ) {
       this.text += this.stringOrEmpty(lineDelimiter);
     }
     this.text += this.stringOrEmpty(text);
