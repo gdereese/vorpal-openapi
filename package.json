@@ -1,8 +1,7 @@
 {
   "name": "vorpal-swagger",
   "version": "0.1.0",
-  "description":
-    "Vorpal extension that creates a CLI for invoking API endpoints defined with a Swagger specification.",
+  "description": "Vorpal extension that creates a CLI for invoking API endpoints defined with a Swagger specification.",
   "main": "dist/index.js",
   "scripts": {
     "build": "npm run-script lint && tsc",
@@ -22,6 +21,7 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
+    "cli-spinner": "^0.2.7",
     "lodash": "^4.17.4",
     "swagger-client": "^3.4.7",
     "vorpal": "^1.12.0"

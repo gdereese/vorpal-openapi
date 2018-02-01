@@ -1,3 +1,5 @@
+import { Spinner } from 'cli-spinner';
+
 import * as commandOptionNames from './command-option-names';
 import { OperationCommandInfo } from './operation-command-info';
 
@@ -26,14 +28,19 @@ export class OperationCommandAction {
           args.options[commandOptionNames.RESPONSE_CONTENT_TYPE];
       }
 
+      const spinner = new Spinner('Sending request...');
+      spinner.setSpinnerString(10);
+      spinner.start();
+
       return client
         .execute(executeOptions)
-        .then(response => self.handleSuccessResponse(response))
-        .catch(error => self.handleErrorResponse(error));
+        .then(response => self.handleSuccessResponse(response, spinner))
+        .catch(error => self.handleErrorResponse(error, spinner));
     });
   }
 
-  private handleErrorResponse(error) {
+  private handleErrorResponse(error, spinner: Spinner) {
+    spinner.stop(true);
     this.vorpal.log(
       this.vorpal.chalk.red(
         error.response.status + ' ' + error.response.statusText
@@ -53,7 +60,8 @@ export class OperationCommandAction {
     this.vorpal.log();
   }
 
-  private handleSuccessResponse(response) {
+  private handleSuccessResponse(response, spinner: Spinner) {
+    spinner.stop(true);
     this.vorpal.log(
       this.vorpal.chalk.green(response.status + ' ' + response.statusText)
     );
