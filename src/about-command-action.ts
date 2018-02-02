@@ -4,45 +4,38 @@ import * as stringUtils from './string-utils';
 import { TextBuilder } from './text-builder';
 
 export class AboutCommandAction {
-  constructor(private infoSpec, private vorpal) {}
+  constructor(private command) {}
 
-  public run(args, callback) {
-    const infoBuilder = new TextBuilder();
+  public run(infoSpec): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const infoBuilder = new TextBuilder();
 
-    infoBuilder.addLine();
+      infoBuilder.addLine();
 
-    const version = this.infoSpec.version
-      ? 'Version ' + this.infoSpec.version
-      : '';
-    const heading = stringUtils.joinNonEmpty(
-      [this.infoSpec.title, version],
-      '\n'
-    );
-    infoBuilder.addParagraph(heading);
+      const version = infoSpec.version ? 'Version ' + infoSpec.version : '';
+      const heading = stringUtils.joinNonEmpty([infoSpec.title, version], '\n');
+      infoBuilder.addParagraph(heading);
 
-    let contact = stringUtils.joinNonEmpty(
-      [
-        this.infoSpec.contact.name,
-        this.infoSpec.contact.url,
-        this.infoSpec.contact.email
-      ],
-      ' • '
-    );
-    if (contact.length > 0) {
-      contact = 'Contact:\n' + contact;
-    }
-    infoBuilder.addParagraph(contact);
-
-    if (this.infoSpec.termsOfService) {
-      infoBuilder.addParagraph(
-        'Terms of Service:\n' + this.infoSpec.termsOfService
+      let contact = stringUtils.joinNonEmpty(
+        [infoSpec.contact.name, infoSpec.contact.url, infoSpec.contact.email],
+        ' • '
       );
-    }
+      if (contact.length > 0) {
+        contact = 'Contact:\n' + contact;
+      }
+      infoBuilder.addParagraph(contact);
 
-    infoBuilder.addLine();
+      if (infoSpec.termsOfService) {
+        infoBuilder.addParagraph(
+          'Terms of Service:\n' + infoSpec.termsOfService
+        );
+      }
 
-    this.vorpal.log(infoBuilder.toString());
+      infoBuilder.addLine();
 
-    callback();
+      this.command.log(infoBuilder.toString());
+
+      resolve();
+    });
   }
 }

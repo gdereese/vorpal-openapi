@@ -1,37 +1,37 @@
 import { Spinner } from 'cli-spinner';
+import * as _ from 'lodash';
 
 import * as commandOptionNames from './command-option-names';
+import * as localStorageKeys from './local-storage-keys';
 import { OperationCommandInfo } from './operation-command-info';
+import { Options } from './options';
+import { SwaggerExecuteOptionsFactory } from './swagger-execute-options-factory';
 
 export class OperationCommandAction {
   constructor(
     private swaggerClientPromise,
     private commandInfo: OperationCommandInfo,
-    private vorpal
+    private command
   ) {}
 
-  public run(args) {
+  public run(args, options: Options) {
     const self = this;
 
     this.swaggerClientPromise.then(client => {
-      self.vorpal.log();
+      this.command.log();
 
-      const executeOptions = {
-        operationId: self.commandInfo.operation.operationId,
-        parameters: args
-      };
-
-      // if response-type is specified, set execute option
-      if (args.options[commandOptionNames.RESPONSE_CONTENT_TYPE]) {
-        const responseContentTypePropName = 'responseContentType';
-        executeOptions[responseContentTypePropName] =
-          args.options[commandOptionNames.RESPONSE_CONTENT_TYPE];
-      }
+      const executeOptionsFactory = new SwaggerExecuteOptionsFactory();
+      const executeOptions = executeOptionsFactory.create(
+        this.command,
+        this.commandInfo,
+        args
+      );
 
       const spinner = new Spinner('Sending request...');
       spinner.setSpinnerString(10);
       spinner.start();
 
+      // TODO: change to return response string (instead of writing to log); perhaps commands could then be piped?
       return client
         .execute(executeOptions)
         .then(response => self.handleSuccessResponse(response, spinner))
@@ -41,8 +41,8 @@ export class OperationCommandAction {
 
   private handleErrorResponse(error, spinner: Spinner) {
     spinner.stop(true);
-    this.vorpal.log(
-      this.vorpal.chalk.red(
+    this.command.log(
+      this.command.parent.chalk.red(
         error.response.status + ' ' + error.response.statusText
       )
     );
@@ -52,28 +52,32 @@ export class OperationCommandAction {
       error.response.status
     ];
     if (responseSpec && responseSpec.description) {
-      this.vorpal.log(this.vorpal.chalk.red(responseSpec.description));
+      this.command.log(this.command.parent.chalk.red(responseSpec.description));
     }
 
-    this.vorpal.log(error.response.data);
+    this.command.log(error.response.data);
 
-    this.vorpal.log();
+    this.command.log();
   }
 
   private handleSuccessResponse(response, spinner: Spinner) {
     spinner.stop(true);
-    this.vorpal.log(
-      this.vorpal.chalk.green(response.status + ' ' + response.statusText)
+    this.command.log(
+      this.command.parent.chalk.green(
+        response.status + ' ' + response.statusText
+      )
     );
 
     // if response is expected per the operation spec, display the response description
     const responseSpec = this.commandInfo.operation.responses[response.status];
     if (responseSpec && responseSpec.description) {
-      this.vorpal.log(this.vorpal.chalk.green(responseSpec.description));
+      this.command.log(
+        this.command.parent.chalk.green(responseSpec.description)
+      );
     }
 
-    this.vorpal.log(response.data);
+    this.command.log(response.data);
 
-    this.vorpal.log();
+    this.command.log();
   }
 }

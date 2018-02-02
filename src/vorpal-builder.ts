@@ -1,6 +1,8 @@
 import * as _ from 'lodash';
 
-import { AboutCommandAction } from './about-command-action';
+import { AboutCommandBuilder } from './about-command-builder';
+import { AuthorizeApiKeyCommandBuilder } from './authorize-api-key-command-builder';
+import { AuthorizeBasicCommandBuilder } from './authorize-basic-command-builder';
 import * as commandGroupTypes from './command-group-types';
 import { OperationCommandBuilder } from './operation-command-builder';
 import { OperationCommandInfo } from './operation-command-info';
@@ -9,41 +11,57 @@ import * as stringUtils from './string-utils';
 import { TextBuilder } from './text-builder';
 
 export function build(vorpal, options: Options) {
+  const infoSpec = options.spec.info;
+
   let delimiter;
-  if (options.spec.info.title) {
-    delimiter = _.kebabCase(options.spec.info.title) + '$';
+  if (infoSpec.title) {
+    delimiter = _.kebabCase(infoSpec.title) + '$';
   } else {
     delimiter = 'vorpal-swagger$';
   }
   vorpal.delimiter(delimiter);
 
   let historyString;
-  if (options.spec.info.title) {
-    historyString = _.kebabCase(options.spec.info.title);
+  if (infoSpec.title) {
+    historyString = _.kebabCase(infoSpec.title);
   } else {
     historyString = 'vorpal-swagger-' + process.pid;
   }
   vorpal.history(historyString);
 
   let localStorageString;
-  if (options.spec.info.title) {
-    localStorageString = _.kebabCase(options.spec.info.title);
+  if (infoSpec.title) {
+    localStorageString = _.kebabCase(infoSpec.title);
   } else {
     localStorageString = 'vorpal-swagger-' + process.pid;
   }
   vorpal.localStorage(localStorageString);
 
-  if (options.spec.info) {
-    const aboutCommandAction = new AboutCommandAction(
-      options.spec.info,
-      vorpal
-    );
-    vorpal
-      .command('about', 'Displays information about the API.')
-      .action((args, cb) => aboutCommandAction.run(args, cb));
+  if (infoSpec) {
+    const aboutCommandBuilder = new AboutCommandBuilder(vorpal);
+    aboutCommandBuilder.build(infoSpec);
   }
 
-  // TODO: add commands for setting auth
+  // add an authorize command for each security scheme
+  const securitySchemeNames = _.keys(options.spec.securityDefinitions);
+  const apiKeyAuthorizeCommandBuilder = new AuthorizeApiKeyCommandBuilder(
+    vorpal
+  );
+  const basicAuthorizeCommandBuilder = new AuthorizeBasicCommandBuilder(vorpal);
+  for (const name of securitySchemeNames) {
+    const securityScheme = options.spec.securityDefinitions[name];
+
+    switch (securityScheme.type) {
+      case 'apiKey':
+        apiKeyAuthorizeCommandBuilder.build(name, options);
+        break;
+      case 'basic':
+        basicAuthorizeCommandBuilder.build(name, options);
+        break;
+      default:
+        break;
+    }
+  }
 
   let commandInfos = [];
   switch ((options.operations.groupBy || '').toLowerCase()) {

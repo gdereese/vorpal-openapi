@@ -59,12 +59,14 @@ export class OperationCommandBuilder {
     command.validate(args => validator.validate(args));
 
     const swaggerClientPromise = Swagger({ spec: this.options.spec });
-    const action = new OperationCommandAction(
-      swaggerClientPromise,
-      commandInfo,
-      this.vorpal
-    );
-    command.action(args => action.run(args));
+    command.action(args => {
+      const action = new OperationCommandAction(
+        swaggerClientPromise,
+        commandInfo,
+        this.vorpal.activeCommand
+      );
+      action.run(args, this.options);
+    });
 
     return command;
   }
