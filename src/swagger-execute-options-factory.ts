@@ -13,9 +13,9 @@ export class SwaggerExecuteOptionsFactory {
     const authJson = command.parent.localStorage.getItem(localStorageKeys.AUTH);
     let auth;
     try {
-      auth = JSON.parse(authJson);
+      auth = JSON.parse(authJson) || {};
     } catch {
-      auth = null;
+      auth = {};
     }
     const securitiesPropName = 'securities';
     executeOptions[securitiesPropName] = auth;
