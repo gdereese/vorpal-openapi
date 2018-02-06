@@ -28,55 +28,49 @@ export class OperationCommandAction {
       );
 
       const spinner = new Spinner('Sending request...');
-      spinner.setSpinnerString(10);
+      spinner.setSpinnerString(18);
       spinner.start();
 
       // TODO: change to return response string (instead of writing to log); perhaps commands could then be piped?
       return client
         .execute(executeOptions)
-        .then(response => self.handleSuccessResponse(response, spinner))
-        .catch(error => self.handleErrorResponse(error, spinner));
+        .then(response =>
+          self.handleResponse(
+            response,
+            spinner,
+            this.command.parent.chalk.green
+          )
+        )
+        .catch(error =>
+          self.handleResponse(
+            error.response,
+            spinner,
+            this.command.parent.chalk.red
+          )
+        );
     });
   }
 
-  private handleErrorResponse(error, spinner: Spinner) {
+  private handleResponse(response, spinner: Spinner, chalkColor) {
     spinner.stop(true);
-    this.command.log(
-      this.command.parent.chalk.red(
-        error.response.status + ' ' + error.response.statusText
-      )
-    );
 
-    // if response is expected per the operation spec, display the response description
-    const responseSpec = this.commandInfo.operation.responses[
-      error.response.status
-    ];
-    if (responseSpec && responseSpec.description) {
-      this.command.log(this.command.parent.chalk.red(responseSpec.description));
-    }
-
-    this.command.log(error.response.data);
-
-    this.command.log();
-  }
-
-  private handleSuccessResponse(response, spinner: Spinner) {
-    spinner.stop(true);
-    this.command.log(
-      this.command.parent.chalk.green(
-        response.status + ' ' + response.statusText
-      )
-    );
-
+    let result = response.status + ' ' + response.statusText;
     // if response is expected per the operation spec, display the response description
     const responseSpec = this.commandInfo.operation.responses[response.status];
     if (responseSpec && responseSpec.description) {
-      this.command.log(
-        this.command.parent.chalk.green(responseSpec.description)
-      );
+      result += ': ' + responseSpec.description;
     }
+    this.command.log(chalkColor(result));
 
-    this.command.log(response.data);
+    let responseString: string = null;
+    if (typeof response.data === 'string') {
+      responseString = response.data;
+    } else if (response.data instanceof Buffer) {
+      responseString = (response.data as Buffer).toString();
+    }
+    if (responseString && responseString.length > 0) {
+      this.command.log(responseString);
+    }
 
     this.command.log();
   }
