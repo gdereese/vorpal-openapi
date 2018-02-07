@@ -17,7 +17,7 @@ export class OperationCommandAction {
   public run(args, options: Options) {
     const self = this;
 
-    this.swaggerClientPromise.then(client => {
+    return this.swaggerClientPromise.then(client => {
       this.command.log();
 
       const executeOptionsFactory = new SwaggerExecuteOptionsFactory();

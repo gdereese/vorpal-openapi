@@ -77,7 +77,7 @@ export class OperationCommandBuilder {
         commandInfo,
         this.vorpal.activeCommand
       );
-      action.run(args, this.options);
+      return action.run(args, this.options);
     });
 
     return command;
