@@ -14,7 +14,7 @@ export class AuthorizeApiKeyCommandBuilder {
       )
       .action(args => {
         const action = new AuthorizeApiKeyAction(this.vorpal.activeCommand);
-        action.run(args, name);
+        return action.run(args, name);
       });
   }
 }

@@ -14,7 +14,7 @@ export class AuthorizeBasicCommandBuilder {
       )
       .action(args => {
         const action = new AuthorizeBasicAction(this.vorpal.activeCommand);
-        action.run(args, name);
+        return action.run(args, name);
       });
   }
 }
