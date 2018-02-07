@@ -20,7 +20,15 @@ export class SwaggerExecuteOptionsFactory {
     const securitiesPropName = 'securities';
     executeOptions[securitiesPropName] = auth;
 
-    // if response-type is specified, set execute option
+    // if request-content-type is specified, set execute option
+    const requestContentType =
+      commandArgs.options[commandOptionNames.REQUEST_CONTENT_TYPE];
+    if (requestContentType) {
+      const requestContentTypePropName = 'requestContentType';
+      executeOptions[requestContentTypePropName] = requestContentType;
+    }
+
+    // if response-content-type is specified, set execute option
     const responseContentType =
       commandArgs.options[commandOptionNames.RESPONSE_CONTENT_TYPE];
     if (responseContentType) {

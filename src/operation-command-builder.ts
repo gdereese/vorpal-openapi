@@ -29,6 +29,18 @@ export class OperationCommandBuilder {
 
     const command = this.vorpal.command(commandString, commandDescription);
 
+    // add option for request content type (based on values in consumes array)
+    if (
+      commandInfo.operation.consumes &&
+      commandInfo.operation.consumes.length > 0
+    ) {
+      command.option(
+        '--' + commandOptionNames.REQUEST_CONTENT_TYPE + ' <mime-type>',
+        'desired MIME type of request body',
+        commandInfo.operation.consumes
+      );
+    }
+
     // add option for response content type (based on values in produces array)
     if (
       commandInfo.operation.produces &&
