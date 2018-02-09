@@ -14,7 +14,7 @@ export class OperationCommandAction {
     private command
   ) {}
 
-  public run(args, options: Options) {
+  public run(args, options: Options): Promise<any> {
     const self = this;
 
     return this.swaggerClientPromise.then(client => {

@@ -10,7 +10,13 @@
       "name": "Launch Program",
       "preLaunchTask": "build",
       "program": "${workspaceFolder}/dist/index.js",
-      "args": ["pet", "get-pet-by-id", "1"]
+      "args": [
+        "pet",
+        "get-pet-by-id",
+        "1",
+        "--response-content-type",
+        "application/json"
+      ]
     }
   ]
 }

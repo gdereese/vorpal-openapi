@@ -1,20 +1,22 @@
 {
   "name": "vorpal-swagger",
   "version": "0.1.0",
-  "description":
-    "Vorpal extension that creates a CLI for invoking API endpoints defined with a Swagger specification.",
+  "description": "Vorpal extension that creates a CLI for invoking API endpoints defined with a Swagger specification.",
   "main": "dist/index.js",
   "scripts": {
     "build": "npm run-script lint && tsc",
     "license-check": "abogado",
     "lint": "tslint --project tslint.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine-ts test/**/*.spec.ts"
   },
   "author": "Gary DeReese Jr",
   "license": "MIT",
   "devDependencies": {
+    "@types/jasmine": "^2.8.6",
+    "@types/lodash": "^4.14.101",
     "@types/node": "^9.4.0",
     "abogado": "^1.0.0",
+    "jasmine-ts": "^0.2.1",
     "prettier": "^1.10.2",
     "tslint": "5.8.0",
     "tslint-config-prettier": "^1.6.0",
