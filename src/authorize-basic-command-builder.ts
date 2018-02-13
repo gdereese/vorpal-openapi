@@ -15,7 +15,7 @@ export class AuthorizeBasicCommandBuilder implements IVorpalBuilder {
 
     const scheme = options.spec.securityDefinitions[basic];
 
-    vorpal
+    const command = vorpal
       .command(
         'authorize ' + _.kebabCase(scheme.name) + ' <value>',
         'Authorize requests using basic authorization'
@@ -24,5 +24,7 @@ export class AuthorizeBasicCommandBuilder implements IVorpalBuilder {
         const action = new AuthorizeBasicAction(vorpal.activeCommand);
         return action.run(args, scheme.name);
       });
+
+    return command;
   }
 }

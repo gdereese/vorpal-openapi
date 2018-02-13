@@ -15,7 +15,7 @@ export class AuthorizeApiKeyCommandBuilder implements IVorpalBuilder {
 
     const scheme = options.spec.securityDefinitions[apiKey];
 
-    vorpal
+    const command = vorpal
       .command(
         'authorize ' + _.kebabCase(scheme.name) + ' <value>',
         'Authorize requests using an API key'
@@ -24,5 +24,7 @@ export class AuthorizeApiKeyCommandBuilder implements IVorpalBuilder {
         const action = new AuthorizeApiKeyAction(vorpal.activeCommand);
         return action.run(args, scheme.name);
       });
+
+    return command;
   }
 }

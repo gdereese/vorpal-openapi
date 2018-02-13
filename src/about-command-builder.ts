@@ -7,12 +7,14 @@ export class AboutCommandBuilder implements IVorpalBuilder {
     const infoSpec = options.spec.info;
 
     if (infoSpec) {
-      vorpal
+      const command = vorpal
         .command('about', 'Displays information about the API.')
         .action(args => {
           const action = new AboutCommandAction(vorpal);
           return action.run(infoSpec);
         });
+
+      return command;
     }
   }
 }
