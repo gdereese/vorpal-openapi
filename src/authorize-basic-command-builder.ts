@@ -2,19 +2,27 @@ import * as _ from 'lodash';
 
 import { AuthorizeBasicAction } from './authorize-basic-action';
 import { Options } from './options';
+import { IVorpalBuilder } from './vorpal-builder';
 
-export class AuthorizeBasicCommandBuilder {
-  constructor(private vorpal) {}
+export class AuthorizeBasicCommandBuilder implements IVorpalBuilder {
+  public build(vorpal: any, options: Options) {
+    const basic = 'basic';
 
-  public build(name: string, options: Options) {
-    this.vorpal
+    const securitySchemeNames = _.keys(options.spec.securityDefinitions);
+    if (!_.includes(securitySchemeNames, basic)) {
+      return;
+    }
+
+    const scheme = options.spec.securityDefinitions[basic];
+
+    vorpal
       .command(
-        'authorize ' + _.kebabCase(name) + ' <value>',
+        'authorize ' + _.kebabCase(scheme.name) + ' <value>',
         'Authorize requests using basic authorization'
       )
       .action(args => {
-        const action = new AuthorizeBasicAction(this.vorpal.activeCommand);
-        return action.run(args, name);
+        const action = new AuthorizeBasicAction(vorpal.activeCommand);
+        return action.run(args, scheme.name);
       });
   }
 }

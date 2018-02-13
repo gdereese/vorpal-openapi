@@ -13,7 +13,7 @@ describe('operation-command-builder', () => {
       spec: {}
     };
 
-    const builder = new OperationCommandBuilder(vorpalInstance, options);
+    const builder = new OperationCommandBuilder();
 
     const commandInfo = {
       commandStringParts: [],
@@ -23,7 +23,7 @@ describe('operation-command-builder', () => {
       pathKey: null
     };
 
-    const command = builder.build(commandInfo);
+    const command = builder.build(vorpalInstance, options, commandInfo);
 
     const option = _.find(command.options, { long: '--request-content-type' });
 
@@ -42,7 +42,7 @@ describe('operation-command-builder', () => {
       spec: {}
     };
 
-    const builder = new OperationCommandBuilder(vorpalInstance, options);
+    const builder = new OperationCommandBuilder();
 
     const commandInfo = {
       commandStringParts: [],
@@ -52,7 +52,7 @@ describe('operation-command-builder', () => {
       pathKey: null
     };
 
-    const command = builder.build(commandInfo);
+    const command = builder.build(vorpalInstance, options, commandInfo);
 
     const option = _.find(command.options, { long: '--response-content-type' });
 
@@ -71,7 +71,7 @@ describe('operation-command-builder', () => {
       spec: {}
     };
 
-    const builder = new OperationCommandBuilder(vorpalInstance, options);
+    const builder = new OperationCommandBuilder();
 
     const commandInfo = {
       commandStringParts: [],
@@ -90,7 +90,7 @@ describe('operation-command-builder', () => {
       pathKey: null
     };
 
-    const command = builder.build(commandInfo);
+    const command = builder.build(vorpalInstance, options, commandInfo);
 
     const parameter = commandInfo.operation.parameters[0];
     const option = _.find(command.options, { long: '--' + parameter.name });
@@ -113,7 +113,7 @@ describe('operation-command-builder', () => {
       spec: {}
     };
 
-    const builder = new OperationCommandBuilder(vorpalInstance, options);
+    const builder = new OperationCommandBuilder();
 
     const commandInfo = {
       commandStringParts: ['foo', 'bar'],
@@ -123,7 +123,7 @@ describe('operation-command-builder', () => {
       pathKey: null
     };
 
-    const command = builder.build(commandInfo);
+    const command = builder.build(vorpalInstance, options, commandInfo);
 
     expect(command._name).toBe(
       commandInfo.commandStringParts[0] +
@@ -141,7 +141,7 @@ describe('operation-command-builder', () => {
       spec: {}
     };
 
-    const builder = new OperationCommandBuilder(vorpalInstance, options);
+    const builder = new OperationCommandBuilder();
 
     const commandInfo = {
       commandStringParts: [],
@@ -152,7 +152,7 @@ describe('operation-command-builder', () => {
       pathKey: null
     };
 
-    const command = builder.build(commandInfo);
+    const command = builder.build(vorpalInstance, options, commandInfo);
 
     expect(command._description).toBe(commandInfo.operation.description);
   });

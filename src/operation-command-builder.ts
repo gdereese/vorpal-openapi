@@ -9,10 +9,8 @@ import { Options } from './options';
 import { TextBuilder } from './text-builder';
 
 export class OperationCommandBuilder {
-  constructor(private vorpal, private options: Options) {}
-
-  public build(commandInfo: OperationCommandInfo) {
-    const commandString = this.buildCommandString(commandInfo, this.options);
+  public build(vorpal, options: Options, commandInfo: OperationCommandInfo) {
+    const commandString = buildCommandString(options, commandInfo);
 
     const commandDescriptionBuilder = new TextBuilder();
     commandDescriptionBuilder.addParagraph(commandInfo.operation.summary);
@@ -27,7 +25,7 @@ export class OperationCommandBuilder {
     }
     const commandDescription = commandDescriptionBuilder.toString();
 
-    const command = this.vorpal.command(commandString, commandDescription);
+    const command = vorpal.command(commandString, commandDescription);
 
     // add option for request content type (based on values in consumes array)
     if (
@@ -67,38 +65,38 @@ export class OperationCommandBuilder {
       command.option(optionString, optionDescription, optionAutocomplete);
     }
 
-    const validator = new OperationCommandValidator(commandInfo, this.vorpal);
+    const validator = new OperationCommandValidator(commandInfo, vorpal);
     command.validate(args => validator.validate(args));
 
-    const swaggerClientPromise = Swagger({ spec: this.options.spec });
+    const swaggerClientPromise = Swagger({ spec: options.spec });
     command.action(args => {
       const action = new OperationCommandAction(
         swaggerClientPromise,
         commandInfo,
-        this.vorpal.activeCommand
+        vorpal.activeCommand
       );
-      return action.run(args, this.options);
+      return action.run(args, options);
     });
 
     return command;
   }
+}
 
-  private buildCommandString(
-    commandInfo: OperationCommandInfo,
-    options: Options
-  ): string {
-    let commandString = '';
+function buildCommandString(
+  options: Options,
+  commandInfo: OperationCommandInfo
+): string {
+  let commandString = '';
 
-    commandString += commandInfo.commandStringParts.join(' ');
+  commandString += commandInfo.commandStringParts.join(' ');
 
-    // append required parameters to command string
-    const requiredParameters = _.filter(commandInfo.operation.parameters, {
-      required: true
-    });
-    for (const parameter of requiredParameters) {
-      commandString += ' <' + parameter.name + '>';
-    }
-
-    return commandString;
+  // append required parameters to command string
+  const requiredParameters = _.filter(commandInfo.operation.parameters, {
+    required: true
+  });
+  for (const parameter of requiredParameters) {
+    commandString += ' <' + parameter.name + '>';
   }
+
+  return commandString;
 }

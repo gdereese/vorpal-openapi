@@ -1,12 +1,10 @@
 import axios from 'axios';
 import * as vorpalImport from 'vorpal';
 
+import * as VorpalSwaggerExtension from './extension';
 import { Options } from './options';
-import * as vorpalBuilder from './vorpal-builder';
 
-export default function VorpalSwaggerExtension(vorpal, options: Options) {
-  vorpalBuilder.build(vorpal, options);
-}
+export default VorpalSwaggerExtension.use;
 
 axios.get('http://petstore.swagger.io/v2/swagger.json').then(response => {
   const vorpalSwaggerOptions: Options = {
@@ -17,7 +15,7 @@ axios.get('http://petstore.swagger.io/v2/swagger.json').then(response => {
   };
 
   vorpalImport()
-    .use(VorpalSwaggerExtension, vorpalSwaggerOptions)
+    .use(VorpalSwaggerExtension.use, vorpalSwaggerOptions)
     .show()
     .parse(process.argv);
 });
