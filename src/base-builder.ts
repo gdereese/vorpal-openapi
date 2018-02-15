@@ -11,7 +11,7 @@ export class BaseBuilder implements IVorpalBuilder {
     if (infoSpec.title) {
       delimiter = _.kebabCase(infoSpec.title) + '$';
     } else {
-      delimiter = 'vorpal-swagger$';
+      delimiter = 'vorpal-openapi$';
     }
     vorpal.delimiter(delimiter);
 
@@ -19,7 +19,7 @@ export class BaseBuilder implements IVorpalBuilder {
     if (infoSpec.title) {
       historyString = _.kebabCase(infoSpec.title);
     } else {
-      historyString = 'vorpal-swagger-' + process.pid;
+      historyString = 'vorpal-openapi-' + process.pid;
     }
     vorpal.history(historyString);
 
@@ -27,7 +27,7 @@ export class BaseBuilder implements IVorpalBuilder {
     if (infoSpec.title) {
       localStorageString = _.kebabCase(infoSpec.title);
     } else {
-      localStorageString = 'vorpal-swagger-' + process.pid;
+      localStorageString = 'vorpal-openapi-' + process.pid;
     }
     vorpal.localStorage(localStorageString);
   }

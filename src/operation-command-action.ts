@@ -1,11 +1,11 @@
 import { Spinner } from 'cli-spinner';
 import * as _ from 'lodash';
 
+import { ApiExecuteOptionsFactory } from './api-execute-options-factory';
 import * as commandOptionNames from './command-option-names';
 import * as localStorageKeys from './local-storage-keys';
 import { OperationCommandInfo } from './operation-command-info';
 import { Options } from './options';
-import { SwaggerExecuteOptionsFactory } from './swagger-execute-options-factory';
 
 export class OperationCommandAction {
   constructor(
@@ -20,7 +20,7 @@ export class OperationCommandAction {
     return this.swaggerClientPromise.then(client => {
       this.command.log();
 
-      const executeOptionsFactory = new SwaggerExecuteOptionsFactory();
+      const executeOptionsFactory = new ApiExecuteOptionsFactory();
       const executeOptions = executeOptionsFactory.create(
         this.command,
         this.commandInfo,

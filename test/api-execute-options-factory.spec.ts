@@ -1,7 +1,7 @@
+import { ApiExecuteOptionsFactory } from '../src/api-execute-options-factory';
 import { OperationCommandInfo } from '../src/operation-command-info';
-import { SwaggerExecuteOptionsFactory } from '../src/swagger-execute-options-factory';
 
-describe('swagger-execute-options-factory', () => {
+describe('api-execute-options-factory', () => {
   it('sets operationId from command info', () => {
     const command = {
       parent: {
@@ -21,7 +21,7 @@ describe('swagger-execute-options-factory', () => {
       options: {}
     };
 
-    const factory = new SwaggerExecuteOptionsFactory();
+    const factory = new ApiExecuteOptionsFactory();
 
     const options = factory.create(command, commandInfo, commandArgs);
 
@@ -49,7 +49,7 @@ describe('swagger-execute-options-factory', () => {
       }
     };
 
-    const factory = new SwaggerExecuteOptionsFactory();
+    const factory = new ApiExecuteOptionsFactory();
 
     const options = factory.create(command, commandInfo, commandArgs);
 
@@ -79,7 +79,7 @@ describe('swagger-execute-options-factory', () => {
       }
     };
 
-    const factory = new SwaggerExecuteOptionsFactory();
+    const factory = new ApiExecuteOptionsFactory();
 
     const options = factory.create(command, commandInfo, commandArgs);
 
@@ -108,7 +108,7 @@ describe('swagger-execute-options-factory', () => {
       }
     };
 
-    const factory = new SwaggerExecuteOptionsFactory();
+    const factory = new ApiExecuteOptionsFactory();
 
     const options = factory.create(command, commandInfo, commandArgs);
 
@@ -138,7 +138,7 @@ describe('swagger-execute-options-factory', () => {
       }
     };
 
-    const factory = new SwaggerExecuteOptionsFactory();
+    const factory = new ApiExecuteOptionsFactory();
 
     const options = factory.create(command, commandInfo, commandArgs);
 
@@ -166,7 +166,7 @@ describe('swagger-execute-options-factory', () => {
       options: {}
     };
 
-    const factory = new SwaggerExecuteOptionsFactory();
+    const factory = new ApiExecuteOptionsFactory();
 
     const options = factory.create(command, commandInfo, commandArgs);
 

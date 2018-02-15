@@ -1,13 +1,13 @@
 import axios from 'axios';
 import * as vorpalImport from 'vorpal';
 
-import * as VorpalSwaggerExtension from './extension';
+import * as VorpalOpenApiExtension from './extension';
 import { Options } from './options';
 
-export default VorpalSwaggerExtension.use;
+export default VorpalOpenApiExtension.use;
 
 axios.get('http://petstore.swagger.io/v2/swagger.json').then(response => {
-  const vorpalSwaggerOptions: Options = {
+  const vorpalOpenApiOptions: Options = {
     operations: {
       groupBy: 'tag'
     },
@@ -15,7 +15,7 @@ axios.get('http://petstore.swagger.io/v2/swagger.json').then(response => {
   };
 
   vorpalImport()
-    .use(VorpalSwaggerExtension.use, vorpalSwaggerOptions)
+    .use(VorpalOpenApiExtension.use, vorpalOpenApiOptions)
     .show()
     .parse(process.argv);
 });

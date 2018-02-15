@@ -4,7 +4,7 @@ import * as commandOptionNames from './command-option-names';
 import * as localStorageKeys from './local-storage-keys';
 import { OperationCommandInfo } from './operation-command-info';
 
-export class SwaggerExecuteOptionsFactory {
+export class ApiExecuteOptionsFactory {
   public create(command, commandInfo: OperationCommandInfo, commandArgs) {
     const executeOptions = {
       operationId: commandInfo.operation.operationId,
