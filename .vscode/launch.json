@@ -11,6 +11,7 @@
       "preLaunchTask": "build",
       "program": "${workspaceFolder}/dist/index.js",
       "args": [
+        "./test/fixtures/petstore_swagger.json",
         "pet",
         "get-pet-by-id",
         "1",
