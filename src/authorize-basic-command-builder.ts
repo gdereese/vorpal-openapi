@@ -6,14 +6,10 @@ import { IVorpalBuilder } from './vorpal-builder';
 
 export class AuthorizeBasicCommandBuilder implements IVorpalBuilder {
   public build(vorpal: any, options: Options) {
-    const basic = 'basic';
-
-    const securitySchemeNames = _.keys(options.spec.securityDefinitions);
-    if (!_.includes(securitySchemeNames, basic)) {
+    const scheme = _.find(options.spec.securityDefinitions, { type: 'basic' });
+    if (!scheme) {
       return;
     }
-
-    const scheme = options.spec.securityDefinitions[basic];
 
     const command = vorpal
       .command(

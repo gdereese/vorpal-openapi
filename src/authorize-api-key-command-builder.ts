@@ -6,14 +6,10 @@ import { IVorpalBuilder } from './vorpal-builder';
 
 export class AuthorizeApiKeyCommandBuilder implements IVorpalBuilder {
   public build(vorpal: any, options: Options) {
-    const apiKey = 'apiKey';
-
-    const securitySchemeNames = _.keys(options.spec.securityDefinitions);
-    if (!_.includes(securitySchemeNames, apiKey)) {
+    const scheme = _.find(options.spec.securityDefinitions, { type: 'apiKey' });
+    if (!scheme) {
       return;
     }
-
-    const scheme = options.spec.securityDefinitions[apiKey];
 
     const command = vorpal
       .command(

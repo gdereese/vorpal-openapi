@@ -11,8 +11,9 @@ describe('authorize-api-key-command-builder', () => {
       },
       spec: {
         securityDefinitions: {
-          apiKey: {
-            name: 'foo'
+          foo: {
+            name: 'foo',
+            type: 'apiKey'
           }
         }
       }
@@ -23,7 +24,7 @@ describe('authorize-api-key-command-builder', () => {
     const command = builder.build(vorpalInstance, options);
 
     expect(command._name).toBe(
-      'authorize ' + options.spec.securityDefinitions.apiKey.name
+      'authorize ' + options.spec.securityDefinitions.foo.name
     );
   });
 });
