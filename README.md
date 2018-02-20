@@ -149,14 +149,14 @@ The following commands are added to the CLI by default:
 
 When utilizing this package as a vorpal extension, an options object can be passed in the `vorpal.use()` function call for customizing the look and behavior of the generated CLI. The schemas for the options object is as follows:
 
-### options
+### `options`
 
 | Property     |   Type   | Description                                                                                                                     |
 | :----------- | :------: | :------------------------------------------------------------------------------------------------------------------------------ |
 | `operations` | `object` | Options for how operations defined in the OpenAPI/Swagger spec are handled. See [operations](README.md#operations) for details. |
 | `spec`       | `object` | **(required)** OpenAPI/Swagger specification object.                                                                            |
 
-### operations
+### `operations`
 
 | Property  |   Type   | Description                                                                                                                                                |
 | :-------- | :------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
