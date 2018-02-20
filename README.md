@@ -151,13 +151,13 @@ When utilizing this package as a vorpal extension, an options object can be pass
 
 ### options
 
-| Property   |  Type  | Description                                                                                                                     |
-| :--------- | :----: | :------------------------------------------------------------------------------------------------------------------------------ |
-| operations | object | Options for how operations defined in the OpenAPI/Swagger spec are handled. See [operations](README.md#operations) for details. |
-| spec       | object | **(required)** OpenAPI/Swagger specification object.                                                                            |
+| Property     |   Type   | Description                                                                                                                     |
+| :----------- | :------: | :------------------------------------------------------------------------------------------------------------------------------ |
+| `operations` | `object` | Options for how operations defined in the OpenAPI/Swagger spec are handled. See [operations](README.md#operations) for details. |
+| `spec`       | `object` | **(required)** OpenAPI/Swagger specification object.                                                                            |
 
 ### operations
 
-| Property |  Type  | Description                                                                                                                                                |
-| :------- | :----: | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| groupBy  | string | Indicates how operations defined in the spec will be grouped. `none` = no grouping, `path` = group by first path segment, `tag` = group by operation tags. |
+| Property  |   Type   | Description                                                                                                                                                |
+| :-------- | :------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `groupBy` | `string` | Indicates how operations defined in the spec will be grouped. `none` = no grouping, `path` = group by first path segment, `tag` = group by operation tags. |
