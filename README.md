@@ -112,7 +112,7 @@ Example spec:
 ```
 
 | Grouping Option Value | Generated Commands                                                            |
-| --------------------- | ----------------------------------------------------------------------------- |
+| :-------------------- | :---------------------------------------------------------------------------- |
 | `none`                | `add-widget`<br />`get-widgets`<br />`update-whizbang`                        |
 | `path`                | `widget add-widget`<br />`widget get-widgets`<br />`whizbang update-whizbang` |
 | `tag`                 | `admin add-widget`<br />`admin update-whizbang`<br />`widget get-widgets`     |
@@ -130,7 +130,7 @@ If the operation has a body parameter, the `body` parameter on the command is us
 Each API operation command has the following options to configure additional aspects of the request made by the command:
 
 | Option                    | Description                                                                                                                                                 |
-| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| :------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--request-content-type`  | Indicates the content type of the request body. Available options are taken from those listed in the operation spec's `consumes` object.                    |
 | `--response-content-type` | Indicates the desired content type of the response to be returned. Available options are taken from those listed in the operation spec's `produces` object. |
 
@@ -139,7 +139,7 @@ Each API operation command has the following options to configure additional asp
 The following commands are added to the CLI by default:
 
 | Command     | Description                                                                                                                                                                                                                                                                                      |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| :---------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `about`     | Displays information about the API. This command displays various bits from the `info` object of the spec to the user such as the `version`, `contact` and `termsOfService` properties.                                                                                                          |
 | `authorize` | Sets the value(s) required to fulfill a given authorization scheme accepted/required by the API. An `authorize` sub-command is created for each scheme defined in the spec's `securityDefinitions` object. You can type `help authorize` at the CLI prompt to list the schemes available to use. |
 | `exit`      | Exits the current CLI session and returns to the host command prompt.                                                                                                                                                                                                                            |
@@ -152,12 +152,12 @@ When utilizing this package as a vorpal extension, an options object can be pass
 ### options
 
 | Property   |  Type  | Description                                                                                                                     |
-| ---------- | :----: | ------------------------------------------------------------------------------------------------------------------------------- |
+| :--------- | :----: | :------------------------------------------------------------------------------------------------------------------------------ |
 | operations | object | Options for how operations defined in the OpenAPI/Swagger spec are handled. See [operations](README.md#operations) for details. |
 | spec       | object | **(required)** OpenAPI/Swagger specification object.                                                                            |
 
 ### operations
 
 | Property |  Type  | Description                                                                                                                                                |
-| -------- | :----: | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| :------- | :----: | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | groupBy  | string | Indicates how operations defined in the spec will be grouped. `none` = no grouping, `path` = group by first path segment, `tag` = group by operation tags. |
