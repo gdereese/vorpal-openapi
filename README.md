@@ -111,11 +111,11 @@ Example spec:
 }
 ```
 
-| Grouping Option Value | Generated Commands                                                            |
-| :-------------------- | :---------------------------------------------------------------------------- |
-| `none`                | `add-widget`<br />`get-widgets`<br />`update-whizbang`                        |
-| `path`                | `widget add-widget`<br />`widget get-widgets`<br />`whizbang update-whizbang` |
-| `tag`                 | `admin add-widget`<br />`admin update-whizbang`<br />`widget get-widgets`     |
+| `operations.groupBy` | Generated Commands                                                            |
+| :------------------- | :---------------------------------------------------------------------------- |
+| `none`               | `add-widget`<br />`get-widgets`<br />`update-whizbang`                        |
+| `path`               | `widget add-widget`<br />`widget get-widgets`<br />`whizbang update-whizbang` |
+| `tag`                | `admin add-widget`<br />`admin update-whizbang`<br />`widget get-widgets`     |
 
 When operations are grouped, you can type `help <group-name>` to get a listing of all commands in that group.
 
