@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import * as _ from 'lodash';
 import * as vorpal from 'vorpal';
 
