@@ -3,6 +3,12 @@ import * as fs from 'fs';
 
 export class SpecProvider {
   public getSpec(pathOrUrl: string): Promise<any> {
+    if (!pathOrUrl) {
+      return new Promise((resolve, reject) => {
+        reject('Spec path or URL was not specified.');
+      });
+    }
+
     const isUrl = this.isUrl(pathOrUrl);
 
     if (isUrl) {

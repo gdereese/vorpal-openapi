@@ -60,4 +60,19 @@ describe('spec-provider', () => {
         expect(errorMessage).toBeTruthy();
       });
   });
+
+  it('throws error if path is falsy', () => {
+    const url = undefined;
+
+    const provider = new SpecProvider();
+
+    provider
+      .getSpec(url)
+      .then(spec => {
+        fail('expected error to be thrown');
+      })
+      .catch(errorMessage => {
+        expect(errorMessage).toBeTruthy();
+      });
+  });
 });

@@ -34,6 +34,9 @@ specProvider
       .parse(process.argv);
   })
   .catch(errorMessage => {
+    console.log();
     console.error(errorMessage);
+    console.log();
+
     process.exit(1);
   });
