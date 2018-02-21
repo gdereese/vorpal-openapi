@@ -1,6 +1,7 @@
 # vorpal-openapi
 
 [![Build Status](https://travis-ci.org/gdereese/vorpal-openapi.svg?branch=master)](https://travis-ci.org/gdereese/vorpal-openapi)
+[![npm version](https://badge.fury.io/js/vorpal-openapi.svg)](https://badge.fury.io/js/vorpal-openapi)
 
 [Vorpal](https://github.com/dthree/vorpal) extension that creates a CLI for invoking API endpoints defined with an OpenAPI/Swagger specification.
 
