@@ -52,6 +52,14 @@ vorpal-openapi path/to/spec
 vorpal-openapi http://url/to/spec
 ```
 
+You can also run in non-interactive mode by passing a known command and parameters after the spec path/URL:
+
+```
+vorpal-openapi path/or/url pet get-pet-by-id 1
+```
+
+If you invoke a command in this way, the CLI will return the command results then exit.
+
 ### Vorpal extension
 
 A CLI can also be created by utilizing the vorpal plugin provided in this package. You will need to construct the CLI options and load the spec file yourself, then pass them to extension.
