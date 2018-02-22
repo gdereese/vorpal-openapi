@@ -3,6 +3,13 @@
   "version": "0.1.3",
   "description":
     "Vorpal extension that creates a CLI for invoking API endpoints defined with an OpenAPI/Swagger specification.",
+  "keywords": [
+    "typescript",
+    "vorpal",
+    "vorpal-extension",
+    "swagger",
+    "openapi"
+  ],
   "author": "Gary DeReese Jr",
   "license": "MIT",
   "repository": {
