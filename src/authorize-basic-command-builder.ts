@@ -5,22 +5,27 @@ import { Options } from './options';
 import { IVorpalBuilder } from './vorpal-builder';
 
 export class AuthorizeBasicCommandBuilder implements IVorpalBuilder {
-  public build(vorpal: any, options: Options) {
-    const scheme = _.find(options.spec.securityDefinitions, { type: 'basic' });
-    if (!scheme) {
-      return;
+  public build(vorpal: any, options: Options): any[] {
+    const commands = [];
+
+    for (const schemeKey of _.keys(options.spec.securityDefinitions)) {
+      const scheme = options.spec.securityDefinitions[schemeKey];
+      if (scheme.type !== 'basic') {
+        continue;
+      }
+
+      const command = vorpal
+        .command(
+          'authorize ' + _.kebabCase(schemeKey) + ' <value>',
+          'Authorize requests using basic authorization'
+        )
+        .action(args => {
+          const action = new AuthorizeBasicAction(vorpal.activeCommand);
+          return action.run(args, schemeKey);
+        });
+      commands.push(command);
     }
 
-    const command = vorpal
-      .command(
-        'authorize ' + _.kebabCase(scheme.name) + ' <value>',
-        'Authorize requests using basic authorization'
-      )
-      .action(args => {
-        const action = new AuthorizeBasicAction(vorpal.activeCommand);
-        return action.run(args, scheme.name);
-      });
-
-    return command;
+    return commands;
   }
 }

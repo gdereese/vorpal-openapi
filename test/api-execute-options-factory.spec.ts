@@ -151,7 +151,7 @@ describe('api-execute-options-factory', () => {
     const command = {
       parent: {
         localStorage: {
-          getItem: key => '{"foo":"bar"}'
+          getItem: key => '{"foo_auth":"bar"}'
         }
       }
     };
@@ -170,6 +170,6 @@ describe('api-execute-options-factory', () => {
 
     const options = factory.create(command, commandInfo, commandArgs);
 
-    expect(options.securities.foo).toBe('bar');
+    expect(options.securities.foo_auth).toBe('bar');
   });
 });

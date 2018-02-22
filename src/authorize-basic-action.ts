@@ -3,7 +3,7 @@ import * as localStorageKeys from './local-storage-keys';
 export class AuthorizeBasicAction {
   constructor(private command) {}
 
-  public run(args, name): Promise<any> {
+  public run(args, schemeKey: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.command.log();
 
@@ -18,7 +18,7 @@ export class AuthorizeBasicAction {
         auth = {};
       }
 
-      auth[name] = args.value;
+      auth[schemeKey] = args.value;
 
       this.command.parent.localStorage.setItem(
         localStorageKeys.AUTH,

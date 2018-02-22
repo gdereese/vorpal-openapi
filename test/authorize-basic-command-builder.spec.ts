@@ -11,7 +11,11 @@ describe('authorize-basic-command-builder', () => {
       },
       spec: {
         securityDefinitions: {
-          foo: {
+          bar_auth: {
+            name: 'bar',
+            type: 'basic'
+          },
+          foo_auth: {
             name: 'foo',
             type: 'basic'
           }
@@ -21,10 +25,9 @@ describe('authorize-basic-command-builder', () => {
 
     const builder = new AuthorizeBasicCommandBuilder();
 
-    const command = builder.build(vorpalInstance, options);
+    const commands = builder.build(vorpalInstance, options);
 
-    expect(command._name).toBe(
-      'authorize ' + options.spec.securityDefinitions.foo.name
-    );
+    expect(commands[0]._name).toBe('authorize bar-auth');
+    expect(commands[1]._name).toBe('authorize foo-auth');
   });
 });
