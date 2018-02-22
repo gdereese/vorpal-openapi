@@ -1,3 +1,5 @@
-export const NONE = 'none';
-export const PATH = 'path';
-export const TAG = 'tag';
+export enum CommandGroupTypes {
+  None = 'none',
+  Path = 'path',
+  Tag = 'tag'
+}

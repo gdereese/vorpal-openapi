@@ -1,3 +1,5 @@
+import { CommandGroupTypes } from './command-group-types';
+
 export class OperationsOptions {
-  public groupBy: string;
+  public groupBy: CommandGroupTypes;
 }

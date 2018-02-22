@@ -3,6 +3,7 @@
 import * as _ from 'lodash';
 import * as vorpal from 'vorpal';
 
+import { CommandGroupTypes } from './command-group-types';
 import * as VorpalOpenApiExtension from './extension';
 import { Options } from './options';
 import { SpecProvider } from './spec-provider';
@@ -19,7 +20,7 @@ specProvider
   .then(spec => {
     const vorpalOpenApiOptions: Options = {
       operations: {
-        groupBy: 'tag'
+        groupBy: CommandGroupTypes.Tag
       },
       spec
     };

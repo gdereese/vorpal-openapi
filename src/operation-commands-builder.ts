@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 
-import * as commandGroupTypes from './command-group-types';
+import { CommandGroupTypes } from './command-group-types';
 import { OperationCommandBuilder } from './operation-command-builder';
 import { OperationCommandInfo } from './operation-command-info';
 import { Options } from './options';
@@ -9,11 +9,11 @@ import { IVorpalBuilder } from './vorpal-builder';
 export class OperationCommandsBuilder implements IVorpalBuilder {
   public build(vorpal: any, options: Options) {
     let commandInfos = [];
-    switch ((options.operations.groupBy || '').toLowerCase()) {
-      case commandGroupTypes.PATH:
+    switch (options.operations.groupBy) {
+      case CommandGroupTypes.Path:
         commandInfos = getCommandInfosByPaths(options.spec);
         break;
-      case commandGroupTypes.TAG:
+      case CommandGroupTypes.Tag:
         commandInfos = getCommandInfosByTags(options.spec);
         break;
       default:
