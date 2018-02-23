@@ -7,6 +7,7 @@ describe('operation-command-builder', () => {
   it('adds option for request content type if operation specifies consumes values', () => {
     const vorpalInstance = vorpal();
     const options = {
+      interactive: false,
       operations: {
         groupBy: null
       },
@@ -36,6 +37,7 @@ describe('operation-command-builder', () => {
   it('adds option for response content type if operation specifies produces values', () => {
     const vorpalInstance = vorpal();
     const options = {
+      interactive: false,
       operations: {
         groupBy: null
       },
@@ -65,6 +67,7 @@ describe('operation-command-builder', () => {
   it('adds options for optional parameters', () => {
     const vorpalInstance = vorpal();
     const options = {
+      interactive: false,
       operations: {
         groupBy: null
       },
@@ -107,6 +110,7 @@ describe('operation-command-builder', () => {
   it('uses specified parts as command name', () => {
     const vorpalInstance = vorpal();
     const options = {
+      interactive: false,
       operations: {
         groupBy: null
       },
@@ -135,6 +139,7 @@ describe('operation-command-builder', () => {
   it('uses operation description as command description', () => {
     const vorpalInstance = vorpal();
     const options = {
+      interactive: false,
       operations: {
         groupBy: null
       },

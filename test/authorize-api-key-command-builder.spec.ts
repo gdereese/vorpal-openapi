@@ -6,6 +6,7 @@ describe('authorize-api-key-command-builder', () => {
   it('adds command for each apiKey scheme', () => {
     const vorpalInstance = vorpal();
     const options = {
+      interactive: false,
       operations: {
         groupBy: null
       },
