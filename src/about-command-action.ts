@@ -16,14 +16,18 @@ export class AboutCommandAction {
       const heading = stringUtils.joinNonEmpty([infoSpec.title, version], '\n');
       infoBuilder.addParagraph(heading);
 
-      let contact = stringUtils.joinNonEmpty(
-        [infoSpec.contact.name, infoSpec.contact.url, infoSpec.contact.email],
-        ' • '
-      );
-      if (contact.length > 0) {
-        contact = 'Contact:\n' + contact;
+      infoBuilder.addParagraph(infoSpec.description);
+
+      if (infoSpec.contact) {
+        let contact = stringUtils.joinNonEmpty(
+          [infoSpec.contact.name, infoSpec.contact.url, infoSpec.contact.email],
+          ' • '
+        );
+        if (contact.length > 0) {
+          contact = 'Contact:\n' + contact;
+        }
+        infoBuilder.addParagraph(contact);
       }
-      infoBuilder.addParagraph(contact);
 
       if (infoSpec.termsOfService) {
         infoBuilder.addParagraph(
