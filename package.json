@@ -32,18 +32,18 @@
   },
   "devDependencies": {
     "@types/jasmine": "2.8.6",
-    "@types/lodash": "4.14.102",
+    "@types/lodash": "4.14.104",
     "@types/node": "9.4.6",
     "abogado": "1.0.0",
     "jasmine-ts": "0.2.1",
     "prettier": "1.10.2",
     "tslint": "5.8.0",
-    "tslint-config-prettier": "1.7.0",
-    "typescript": "2.7.1"
+    "tslint-config-prettier": "1.8.0",
+    "typescript": "2.7.2"
   },
   "dependencies": {
-    "axios": "0.17.1",
-    "cli-spinner": "0.2.7",
+    "axios": "0.18.0",
+    "cli-spinner": "0.2.8",
     "lodash": "4.17.5",
     "swagger-client": "3.4.11",
     "vorpal": "1.12.0"
