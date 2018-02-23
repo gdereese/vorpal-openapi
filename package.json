@@ -3,6 +3,13 @@
   "version": "0.2.0",
   "description":
     "Vorpal extension that creates a CLI for invoking API endpoints defined with an OpenAPI/Swagger specification.",
+  "keywords": [
+    "typescript",
+    "vorpal",
+    "vorpal-extension",
+    "swagger",
+    "openapi"
+  ],
   "author": "Gary DeReese Jr",
   "license": "MIT",
   "repository": {
@@ -14,7 +21,9 @@
   },
   "main": "dist/index.js",
   "bin": "dist/index.js",
-  "files": ["dist/*.js"],
+  "files": [
+    "dist/*.js"
+  ],
   "scripts": {
     "build": "npm run-script lint && tsc",
     "license-check": "abogado",
@@ -23,21 +32,21 @@
     "test": "jasmine-ts test/**/*.spec.ts"
   },
   "devDependencies": {
-    "@types/jasmine": "^2.8.6",
-    "@types/lodash": "^4.14.102",
-    "@types/node": "^9.4.6",
-    "abogado": "^1.0.0",
-    "jasmine-ts": "^0.2.1",
-    "prettier": "^1.10.2",
+    "@types/jasmine": "2.8.6",
+    "@types/lodash": "4.14.104",
+    "@types/node": "9.4.6",
+    "abogado": "1.0.0",
+    "jasmine-ts": "0.2.1",
+    "prettier": "1.10.2",
     "tslint": "5.8.0",
-    "tslint-config-prettier": "^1.7.0",
-    "typescript": "^2.7.1"
+    "tslint-config-prettier": "1.8.0",
+    "typescript": "2.7.2"
   },
   "dependencies": {
-    "axios": "^0.17.1",
-    "cli-spinner": "^0.2.7",
-    "lodash": "^4.17.5",
-    "swagger-client": "^3.4.11",
-    "vorpal": "^1.12.0"
+    "axios": "0.18.0",
+    "cli-spinner": "0.2.8",
+    "lodash": "4.17.5",
+    "swagger-client": "3.4.11",
+    "vorpal": "1.12.0"
   }
 }

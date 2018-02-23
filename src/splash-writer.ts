@@ -7,6 +7,11 @@ export class SplashWriter implements IVorpalBuilder {
   public build(vorpal: any, options: Options) {
     // TODO: need to do better null checking of full path of properties
 
+    // don't show the splash screen stuff in non-interactive mode
+    if (!options.interactive) {
+      return;
+    }
+
     const splashBuilder = new TextBuilder();
 
     splashBuilder.addLine();

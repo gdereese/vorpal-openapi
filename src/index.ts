@@ -18,21 +18,25 @@ const specProvider = new SpecProvider();
 specProvider
   .getSpec(specPathOrUrl)
   .then(spec => {
-    const vorpalOpenApiOptions: Options = {
+    // remove 3rd argument from those passed to this command (path to spec)
+    // so that vorpal doesn't try to parse it
+    _.pullAt(process.argv, specPathOrUrlArgIndex);
+
+    const extensionOptions: Options = {
+      interactive: process.argv.length === 2,
       operations: {
         groupBy: CommandGroupTypes.Tag
       },
       spec
     };
 
-    // remove 3rd argument from those passed to this command (path to spec)
-    // so that vorpal doesn't try to parse it
-    _.pullAt(process.argv, specPathOrUrlArgIndex);
-
-    vorpal()
-      .use(VorpalOpenApiExtension.use, vorpalOpenApiOptions)
-      .show()
+    const vorpalInstance = vorpal()
+      .use(VorpalOpenApiExtension.use, extensionOptions)
       .parse(process.argv);
+
+    if (extensionOptions.interactive) {
+      vorpalInstance.show();
+    }
   })
   .catch(errorMessage => {
     console.log();

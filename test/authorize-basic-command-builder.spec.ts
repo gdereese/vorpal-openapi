@@ -6,6 +6,7 @@ describe('authorize-basic-command-builder', () => {
   it('adds command if security scheme is specified', () => {
     const vorpalInstance = vorpal();
     const options = {
+      interactive: false,
       operations: {
         groupBy: null
       },
