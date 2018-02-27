@@ -1,6 +1,6 @@
 import * as localStorageKeys from './local-storage-keys';
 
-export class AuthorizeApiKeyAction {
+export class SetAuthStringAction {
   constructor(private command) {}
 
   public run(args, schemeKey: string): Promise<any> {
@@ -24,7 +24,7 @@ export class AuthorizeApiKeyAction {
         localStorageKeys.AUTH,
         JSON.stringify(auth)
       );
-      this.command.log('Authentication set.');
+      this.command.log('Authentication set');
 
       this.command.log();
 

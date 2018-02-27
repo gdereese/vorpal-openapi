@@ -1,26 +1,23 @@
 import * as _ from 'lodash';
 
-import { AuthorizeApiKeyAction } from './authorize-api-key-action';
+import { ClearAuthAction } from './clear-auth-action';
 import { Options } from './options';
 import { IVorpalBuilder } from './vorpal-builder';
 
-export class AuthorizeApiKeyCommandBuilder implements IVorpalBuilder {
+export class ClearAuthCommandBuilder implements IVorpalBuilder {
   public build(vorpal: any, options: Options): any[] {
     const commands = [];
 
     for (const schemeKey of _.keys(options.spec.securityDefinitions)) {
       const scheme = options.spec.securityDefinitions[schemeKey];
-      if (scheme.type !== 'apiKey') {
-        continue;
-      }
 
       const command = vorpal
         .command(
-          'authorize ' + _.kebabCase(schemeKey) + ' <value>',
-          'Authorize requests using an API key'
+          'clear-auth ' + _.kebabCase(schemeKey),
+          "Clear authorization value for security scheme '" + schemeKey + "'"
         )
         .action(args => {
-          const action = new AuthorizeApiKeyAction(vorpal.activeCommand);
+          const action = new ClearAuthAction(vorpal.activeCommand);
           return action.run(args, schemeKey);
         });
       commands.push(command);

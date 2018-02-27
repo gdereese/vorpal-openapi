@@ -1,8 +1,8 @@
 import * as vorpal from 'vorpal';
 
-import { AuthorizeApiKeyCommandBuilder } from '../src/authorize-api-key-command-builder';
+import { SetAuthApiKeyCommandBuilder } from '../src/set-auth-api-key-command-builder';
 
-describe('authorize-api-key-command-builder', () => {
+describe('set-auth-api-key-command-builder', () => {
   it('adds command for each apiKey scheme', () => {
     const vorpalInstance = vorpal();
     const options = {
@@ -24,11 +24,11 @@ describe('authorize-api-key-command-builder', () => {
       }
     };
 
-    const builder = new AuthorizeApiKeyCommandBuilder();
+    const builder = new SetAuthApiKeyCommandBuilder();
 
     const commands = builder.build(vorpalInstance, options);
 
-    expect(commands[0]._name).toBe('authorize bar-auth');
-    expect(commands[1]._name).toBe('authorize foo-auth');
+    expect(commands[0]._name).toBe('set-auth bar-auth');
+    expect(commands[1]._name).toBe('set-auth foo-auth');
   });
 });
