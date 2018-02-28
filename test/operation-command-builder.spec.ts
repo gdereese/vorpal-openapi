@@ -34,6 +34,33 @@ describe('operation-command-builder', () => {
     expect(option.autocomplete).toContain(commandInfo.operation.consumes[1]);
   });
 
+  it('adds option for response body output if operation specifies produces values', () => {
+    const vorpalInstance = vorpal();
+    const options = {
+      interactive: false,
+      operations: {
+        groupBy: null
+      },
+      spec: {}
+    };
+
+    const builder = new OperationCommandBuilder();
+
+    const commandInfo = {
+      commandStringParts: [],
+      operation: {
+        produces: ['foo', 'bar']
+      },
+      pathKey: null
+    };
+
+    const command = builder.build(vorpalInstance, options, commandInfo);
+
+    const option = _.find(command.options, { long: '--to-file' });
+
+    expect(option).toBeTruthy();
+  });
+
   it('adds option for response content type if operation specifies produces values', () => {
     const vorpalInstance = vorpal();
     const options = {

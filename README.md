@@ -140,10 +140,11 @@ If the operation has a body parameter, the `body` parameter on the command is us
 
 Each API operation command has the following options to configure additional aspects of the request made by the command:
 
-| Option                    | Description                                                                                                                                                 |
-| :------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--request-content-type`  | Indicates the content type of the request body. Available options are taken from those listed in the operation spec's `consumes` object.                    |
-| `--response-content-type` | Indicates the desired content type of the response to be returned. Available options are taken from those listed in the operation spec's `produces` object. |
+| Option                    | Description                                                                                                                                                           |
+| :------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--request-content-type`  | Indicates the content type of the request body. Available options are taken from those listed in the operation spec's `consumes` object.                              |
+| `--response-content-type` | Indicates the desired content type of the response to be returned. Available options are taken from those listed in the operation spec's `produces` object.           |
+| `--to-file`               | Writes the operation's response body to a file. This option is only available if the operation specifies one or more response content types in the `produces` object. |
 
 ### Global Commands
 

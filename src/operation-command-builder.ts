@@ -27,6 +27,14 @@ export class OperationCommandBuilder {
 
     const command = vorpal.command(commandString, commandDescription);
 
+    // add option for writing response body to file if operation produces body content
+    if (
+      commandInfo.operation.produces &&
+      commandInfo.operation.produces.length > 0
+    ) {
+      command.option('--to-file <path>', 'file path to write response body');
+    }
+
     // add option for request content type (based on values in consumes array)
     if (
       commandInfo.operation.consumes &&
