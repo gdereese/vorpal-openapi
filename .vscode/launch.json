@@ -10,14 +10,7 @@
       "name": "Launch Program",
       "preLaunchTask": "build",
       "program": "${workspaceFolder}/dist/index.js",
-      "args": [
-        "./test/fixtures/petstore_swagger.json",
-        "pet",
-        "get-pet-by-id",
-        "1",
-        "--response-content-type",
-        "application/json"
-      ]
+      "args": ["https://api.ctuit.com/api/swagger/v1/swagger.json"]
     }
   ]
 }

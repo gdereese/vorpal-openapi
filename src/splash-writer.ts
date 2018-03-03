@@ -14,8 +14,6 @@ export class SplashWriter implements IVorpalBuilder {
 
     const splashBuilder = new TextBuilder();
 
-    splashBuilder.addLine();
-
     const version = options.spec.info.version
       ? 'Version ' + options.spec.info.version
       : '';

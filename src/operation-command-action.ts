@@ -1,6 +1,5 @@
-import { Spinner } from 'cli-spinner';
 import * as fs from 'fs';
-import * as _ from 'lodash';
+import * as ora from 'ora';
 
 import { ApiExecuteOptionsFactory } from './api-execute-options-factory';
 import * as commandOptionNames from './command-option-names';
@@ -28,8 +27,7 @@ export class OperationCommandAction {
         args
       );
 
-      const spinner = new Spinner('Sending request...');
-      spinner.setSpinnerString(18);
+      const spinner = ora('Sending request...');
       spinner.start();
 
       // TODO: change to return response string (instead of writing to log); perhaps commands could then be piped?
@@ -56,13 +54,11 @@ export class OperationCommandAction {
 
   private handleResponse(
     response,
-    spinner: Spinner,
+    spinner: any,
     chalkColor,
     bodyPath: string
   ): Promise<any> {
     return new Promise<any>((resolve, reject) => {
-      spinner.stop(true);
-
       let result = response.status + ' ' + response.statusText;
       // if response is expected per the operation spec, display the response description
       const responseSpec = this.commandInfo.operation.responses[
@@ -71,7 +67,12 @@ export class OperationCommandAction {
       if (responseSpec && responseSpec.description) {
         result += ': ' + responseSpec.description;
       }
-      this.command.log(chalkColor(result));
+
+      if (response.status >= 200 && response.status <= 299) {
+        spinner.succeed(result);
+      } else {
+        spinner.fail(result);
+      }
 
       let responseString: string = null;
       if (typeof response.data === 'string') {

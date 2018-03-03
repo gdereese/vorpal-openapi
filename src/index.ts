@@ -14,6 +14,8 @@ const specPathOrUrlArgIndex = 2;
 
 const specPathOrUrl = process.argv[specPathOrUrlArgIndex];
 
+console.log();
+
 const specProvider = new SpecProvider();
 specProvider
   .getSpec(specPathOrUrl)
@@ -39,7 +41,6 @@ specProvider
     }
   })
   .catch(errorMessage => {
-    console.log();
     console.error(errorMessage);
     console.log();
 

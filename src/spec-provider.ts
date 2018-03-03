@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as fs from 'fs';
+import * as ora from 'ora';
 
 export class SpecProvider {
   public getSpec(pathOrUrl: string): Promise<any> {
@@ -31,12 +32,18 @@ export class SpecProvider {
   }
 
   private getSpecFromUrl(url: string): Promise<any> {
+    const spinner = ora('Downloading spec...').start();
+
     return axios
       .get(url)
       .then(response => {
+        spinner.stop();
+
         return response.data;
       })
       .catch(err => {
+        spinner.stop();
+
         const errorMessage =
           "Error retrieving '" +
           url +

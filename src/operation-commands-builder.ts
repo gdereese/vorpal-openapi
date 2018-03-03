@@ -1,4 +1,5 @@
 import * as _ from 'lodash';
+import * as ora from 'ora';
 
 import { CommandGroupTypes } from './command-group-types';
 import { OperationCommandBuilder } from './operation-command-builder';
@@ -8,6 +9,9 @@ import { IVorpalBuilder } from './vorpal-builder';
 
 export class OperationCommandsBuilder implements IVorpalBuilder {
   public build(vorpal: any, options: Options) {
+    const spinner = ora('Adding commands from spec...');
+    spinner.start();
+
     let commandInfos = [];
     switch (options.operations.groupBy) {
       case CommandGroupTypes.Path:
@@ -37,7 +41,11 @@ export class OperationCommandsBuilder implements IVorpalBuilder {
     const commandBuilder = new OperationCommandBuilder();
     for (const info of sortedCommandInfos) {
       commandBuilder.build(vorpal, options, info);
+
+      spinner.render();
     }
+
+    spinner.stop();
   }
 }
 
