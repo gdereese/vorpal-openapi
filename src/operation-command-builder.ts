@@ -1,5 +1,4 @@
 import * as _ from 'lodash';
-import Swagger = require('swagger-client');
 
 import * as commandOptionNames from './command-option-names';
 import { OperationCommandAction } from './operation-command-action';
@@ -9,6 +8,8 @@ import { Options } from './options';
 import { TextBuilder } from './text-builder';
 
 export class OperationCommandBuilder {
+  constructor(private swaggerClientPromise: Promise<any>) {}
+
   public build(vorpal, options: Options, commandInfo: OperationCommandInfo) {
     const commandString = buildCommandString(options, commandInfo);
 
@@ -76,10 +77,9 @@ export class OperationCommandBuilder {
     const validator = new OperationCommandValidator(commandInfo, vorpal);
     command.validate(args => validator.validate(args));
 
-    const swaggerClientPromise = Swagger({ spec: options.spec });
     command.action(args => {
       const action = new OperationCommandAction(
-        swaggerClientPromise,
+        this.swaggerClientPromise,
         commandInfo,
         vorpal.activeCommand
       );

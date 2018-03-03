@@ -1,5 +1,6 @@
 import * as _ from 'lodash';
 import * as ora from 'ora';
+import Swagger = require('swagger-client');
 
 import { CommandGroupTypes } from './command-group-types';
 import { OperationCommandBuilder } from './operation-command-builder';
@@ -38,7 +39,11 @@ export class OperationCommandsBuilder implements IVorpalBuilder {
       }
     );
 
-    const commandBuilder = new OperationCommandBuilder();
+    // constructing this Swagger client is expensive;
+    // all operation commands can share one instance
+    const swaggerClientPromise = Swagger({ spec: options.spec });
+
+    const commandBuilder = new OperationCommandBuilder(swaggerClientPromise);
     for (const info of sortedCommandInfos) {
       commandBuilder.build(vorpal, options, info);
 

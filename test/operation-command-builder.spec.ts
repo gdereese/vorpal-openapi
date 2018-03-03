@@ -14,7 +14,9 @@ describe('operation-command-builder', () => {
       spec: {}
     };
 
-    const builder = new OperationCommandBuilder();
+    const swaggerClientPromise = null;
+
+    const builder = new OperationCommandBuilder(swaggerClientPromise);
 
     const commandInfo = {
       commandStringParts: [],
@@ -44,7 +46,9 @@ describe('operation-command-builder', () => {
       spec: {}
     };
 
-    const builder = new OperationCommandBuilder();
+    const swaggerClientPromise = null;
+
+    const builder = new OperationCommandBuilder(swaggerClientPromise);
 
     const commandInfo = {
       commandStringParts: [],
@@ -71,7 +75,9 @@ describe('operation-command-builder', () => {
       spec: {}
     };
 
-    const builder = new OperationCommandBuilder();
+    const swaggerClientPromise = null;
+
+    const builder = new OperationCommandBuilder(swaggerClientPromise);
 
     const commandInfo = {
       commandStringParts: [],
@@ -101,7 +107,9 @@ describe('operation-command-builder', () => {
       spec: {}
     };
 
-    const builder = new OperationCommandBuilder();
+    const swaggerClientPromise = null;
+
+    const builder = new OperationCommandBuilder(swaggerClientPromise);
 
     const commandInfo = {
       commandStringParts: [],
@@ -144,7 +152,9 @@ describe('operation-command-builder', () => {
       spec: {}
     };
 
-    const builder = new OperationCommandBuilder();
+    const swaggerClientPromise = null;
+
+    const builder = new OperationCommandBuilder(swaggerClientPromise);
 
     const commandInfo = {
       commandStringParts: ['foo', 'bar'],
@@ -173,7 +183,9 @@ describe('operation-command-builder', () => {
       spec: {}
     };
 
-    const builder = new OperationCommandBuilder();
+    const swaggerClientPromise = null;
+
+    const builder = new OperationCommandBuilder(swaggerClientPromise);
 
     const commandInfo = {
       commandStringParts: [],
