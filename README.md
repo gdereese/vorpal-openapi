@@ -130,6 +130,16 @@ Example spec:
 
 When operations are grouped, you can type `help <group-name>` to get a listing of all commands in that group.
 
+Also, grouped operations will have an alias of their operation ID so that they can be invoked without having to specify the group name as well. In the example below, either command line will invoke the same command:
+
+```
+swagger-petstore$ pet get-pet-by-id 1
+```
+
+```
+swagger-petstore$ get-pet-by-id 1
+```
+
 #### Parameters
 
 Each parameter defined in the operation's `parameters` object is mapped to an operation parameter in the CLI. They are handled as they are defined in the spec; parameters where `required = true` are required for the command to be executed, all others are optional.

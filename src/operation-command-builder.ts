@@ -1,5 +1,6 @@
 import * as _ from 'lodash';
 
+import { CommandGroupTypes } from './command-group-types';
 import * as commandOptionNames from './command-option-names';
 import { OperationCommandAction } from './operation-command-action';
 import { OperationCommandInfo } from './operation-command-info';
@@ -27,6 +28,14 @@ export class OperationCommandBuilder {
     const commandDescription = commandDescriptionBuilder.toString();
 
     const command = vorpal.command(commandString, commandDescription);
+
+    // add command alias if command is being grouped (to provide a shorter command string to invoke it with)
+    if (
+      (options.operations.groupBy || CommandGroupTypes.None) !==
+      CommandGroupTypes.None
+    ) {
+      command.alias(_.kebabCase(commandInfo.operation.operationId));
+    }
 
     // add option for writing response body to file if operation produces body content
     if (

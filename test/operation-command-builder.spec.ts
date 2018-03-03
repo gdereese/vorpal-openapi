@@ -1,6 +1,7 @@
 import * as _ from 'lodash';
 import * as vorpal from 'vorpal';
 
+import { CommandGroupTypes } from '../src/command-group-types';
 import { OperationCommandBuilder } from '../src/operation-command-builder';
 
 describe('operation-command-builder', () => {
@@ -199,5 +200,61 @@ describe('operation-command-builder', () => {
     const command = builder.build(vorpalInstance, options, commandInfo);
 
     expect(command._description).toBe(commandInfo.operation.description);
+  });
+
+  it('sets alias from operation id if operation commands are being grouped', () => {
+    const vorpalInstance = vorpal();
+    const options = {
+      interactive: false,
+      operations: {
+        groupBy: CommandGroupTypes.Tag
+      },
+      spec: {}
+    };
+
+    const swaggerClientPromise = null;
+
+    const builder = new OperationCommandBuilder(swaggerClientPromise);
+
+    const commandInfo = {
+      commandStringParts: [],
+      operation: {
+        description: 'foo',
+        operationId: 'fooBar'
+      },
+      pathKey: null
+    };
+
+    const command = builder.build(vorpalInstance, options, commandInfo);
+
+    expect(command._aliases).toContain('foo-bar');
+  });
+
+  it('sets no alias if operation commands are not being grouped', () => {
+    const vorpalInstance = vorpal();
+    const options = {
+      interactive: false,
+      operations: {
+        groupBy: null
+      },
+      spec: {}
+    };
+
+    const swaggerClientPromise = null;
+
+    const builder = new OperationCommandBuilder(swaggerClientPromise);
+
+    const commandInfo = {
+      commandStringParts: [],
+      operation: {
+        description: 'foo',
+        operationId: 'fooBar'
+      },
+      pathKey: null
+    };
+
+    const command = builder.build(vorpalInstance, options, commandInfo);
+
+    expect(command._aliases).not.toContain('foo-bar');
   });
 });
