@@ -69,9 +69,9 @@ export class OperationCommandAction {
       }
 
       if (response.status >= 200 && response.status <= 299) {
-        spinner.succeed(result);
+        spinner.succeed(chalkColor(result));
       } else {
-        spinner.fail(result);
+        spinner.fail(chalkColor(result));
       }
 
       let responseString: string = null;
