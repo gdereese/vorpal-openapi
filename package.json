@@ -1,7 +1,8 @@
 {
   "name": "vorpal-openapi",
-  "version": "0.4.1",
-  "description": "Vorpal extension that creates a CLI for invoking API endpoints defined with an OpenAPI/Swagger specification.",
+  "version": "0.4.0",
+  "description":
+    "Vorpal extension that creates a CLI for invoking API endpoints defined with an OpenAPI/Swagger specification.",
   "keywords": [
     "typescript",
     "vorpal",
@@ -20,9 +21,7 @@
   },
   "main": "dist/index.js",
   "bin": "dist/index.js",
-  "files": [
-    "dist/*.js"
-  ],
+  "files": ["dist/*.js"],
   "scripts": {
     "build": "npm run-script lint && tsc",
     "license-check": "abogado",
