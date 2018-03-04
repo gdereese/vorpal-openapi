@@ -174,7 +174,7 @@ describe('operation-command-builder', () => {
     );
   });
 
-  it('uses operation description as command description', () => {
+  it('uses operation summary as command description', () => {
     const vorpalInstance = vorpal();
     const options = {
       interactive: false,
@@ -191,15 +191,15 @@ describe('operation-command-builder', () => {
     const commandInfo = {
       commandStringParts: [],
       operation: {
-        description: 'foo',
-        operationId: null
+        operationId: null,
+        summary: 'foo'
       },
       pathKey: null
     };
 
     const command = builder.build(vorpalInstance, options, commandInfo);
 
-    expect(command._description).toBe(commandInfo.operation.description);
+    expect(command._description).toBe(commandInfo.operation.summary);
   });
 
   it('sets alias from operation id if operation commands are being grouped', () => {
