@@ -3,6 +3,7 @@ import * as _ from 'lodash';
 import { CommandGroupTypes } from './command-group-types';
 import * as commandOptionNames from './command-option-names';
 import { OperationCommandAction } from './operation-command-action';
+import { OperationCommandHelp } from './operation-command-help';
 import { OperationCommandInfo } from './operation-command-info';
 import { OperationCommandValidator } from './operation-command-validator';
 import { Options } from './options';
@@ -14,20 +15,10 @@ export class OperationCommandBuilder {
   public build(vorpal, options: Options, commandInfo: OperationCommandInfo) {
     const commandString = buildCommandString(options, commandInfo);
 
-    const commandDescriptionBuilder = new TextBuilder();
-    commandDescriptionBuilder.addParagraph(commandInfo.operation.summary);
-    if (
-      commandInfo.operation.description &&
-      commandInfo.operation.description.length > 0
-    ) {
-      commandDescriptionBuilder.addParagraph(
-        commandInfo.operation.description,
-        '\n\n  '
-      );
-    }
-    const commandDescription = commandDescriptionBuilder.toString();
-
-    const command = vorpal.command(commandString, commandDescription);
+    const command = vorpal.command(
+      commandString,
+      commandInfo.operation.summary
+    );
 
     // add command alias if command is being grouped (to provide a shorter command string to invoke it with)
     if (
@@ -82,6 +73,14 @@ export class OperationCommandBuilder {
         : null;
       command.option(optionString, optionDescription, optionAutocomplete);
     }
+
+    // help() does seem to support functions that return a promise, so the callback needs to be used
+    // to return the help text to be displayed
+    const help = new OperationCommandHelp(command, commandInfo);
+    command.help((commandStr, cb) => {
+      const helpText = help.build(commandStr);
+      cb(helpText);
+    });
 
     const validator = new OperationCommandValidator(commandInfo, vorpal);
     command.validate(args => validator.validate(args));

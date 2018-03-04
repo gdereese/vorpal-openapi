@@ -166,7 +166,7 @@ The following commands are added to the CLI by default:
 | `clear-auth` | Clears the auth value(s) for the specified authorization scheme.                                                                                                                                                                                                                              |
 | `set-auth`   | Sets the value(s) required to fulfill a given authorization scheme accepted/required by the API. A `set-auth` sub-command is created for each scheme defined in the spec's `securityDefinitions` object. You can type `help set-auth` at the CLI prompt to list the schemes available to use. |
 | `exit`       | Exits the current CLI session and returns to the host command prompt.                                                                                                                                                                                                                         |
-| `help`       | Lists each command available in the CLI with a brief description of each. The usage pattern, including required and optional parameters, is also specified for each command.                                                                                                                  |
+| `help`       | Lists each command available in the CLI with a brief description of each. The usage pattern, required and optional parameters, and security requirements are also specified for each command.                                                                                                 |
 
 ## Options
 
