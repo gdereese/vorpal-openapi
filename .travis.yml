@@ -5,8 +5,10 @@ node_js:
   - '8'
   - '7'
 
-before_script: npm build
-after_success: npm run-script license-check
+script: 
+  - npm build
+  - npm test
+  - npm run-script license-check
 
 deploy:
   provider: npm
