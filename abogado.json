@@ -1,7 +1,7 @@
 {
   "policy": {
     "allow": {
-      "licenses": ["Apache-*", "BSD-*", "CC0-*", "MIT", "ISC", "undefined"]
+      "licenses": ["Apache-*", "BSD-*", "CC0-*", "MIT", "ISC", "undefined", "Unlicense"]
     },
     "deny": {
       "licenses": []
