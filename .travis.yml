@@ -6,7 +6,7 @@ node_js:
   - '7'
 
 before_script: npm build
-after_success: npm license-check
+after_success: npm run-script license-check
 
 deploy:
   provider: npm
