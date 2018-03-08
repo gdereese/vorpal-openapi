@@ -5,9 +5,7 @@ import * as ora from 'ora';
 export class SpecProvider {
   public getSpec(pathOrUrl: string): Promise<any> {
     if (!pathOrUrl) {
-      return new Promise((resolve, reject) => {
-        reject('Spec path or URL was not specified.');
-      });
+      return Promise.reject('Spec path or URL was not specified.');
     }
 
     const isUrl = this.isUrl(pathOrUrl);
