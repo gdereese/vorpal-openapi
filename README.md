@@ -24,6 +24,14 @@ This utility can be invoked [from the command-line](README.md#Command-line) to b
   * Display API information (version, contact info, terms of service)
   * Setting values for basic or header authorization (if required)
 
+## Compatibility
+
+This package has been tested on the following versions of Node.js:
+
+* 6.x
+* 8.x
+* 9.x
+
 ## Installation
 
 ### Install locally

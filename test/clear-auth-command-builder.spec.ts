@@ -3,8 +3,10 @@ import * as vorpal from 'vorpal';
 import { ClearAuthCommandBuilder } from '../src/clear-auth-command-builder';
 
 describe('clear-auth-command-builder', () => {
+  let vorpalInstance = null;
+
   it('adds command for each scheme', () => {
-    const vorpalInstance = vorpal();
+    vorpalInstance = vorpal();
     const options = {
       interactive: false,
       operations: {
@@ -30,5 +32,9 @@ describe('clear-auth-command-builder', () => {
 
     expect(commands[0]._name).toBe('clear-auth bar-auth');
     expect(commands[1]._name).toBe('clear-auth foo-auth');
+  });
+
+  afterEach(() => {
+    vorpalInstance.ui.removeAllListeners();
   });
 });

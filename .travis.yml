@@ -3,17 +3,16 @@ language: node_js
 node_js:
   - 'node'
   - '8'
-  - '7'
+  - '6'
+  
+script: 
+  - npm test
+  - npm run-script license-check
 
-jobs:
-  include:
-    script: npm build
-    script: npm license-check
-    script: npm test
-    deploy:
-      provider: npm
-      email: $NPM_EMAIL
-      api_key: $NPM_API_TOKEN
-      skip_cleanup: true
-      on:
-        tags: true
+deploy:
+  provider: npm
+  email: $NPM_EMAIL
+  api_key: $NPM_API_TOKEN
+  skip_cleanup: true
+  on:
+    tags: true

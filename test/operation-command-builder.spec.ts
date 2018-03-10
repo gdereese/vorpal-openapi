@@ -5,8 +5,10 @@ import { CommandGroupTypes } from '../src/command-group-types';
 import { OperationCommandBuilder } from '../src/operation-command-builder';
 
 describe('operation-command-builder', () => {
+  let vorpalInstance = null;
+
   it('adds option for request content type if operation specifies consumes values', () => {
-    const vorpalInstance = vorpal();
+    vorpalInstance = vorpal();
     const options = {
       interactive: false,
       operations: {
@@ -38,7 +40,7 @@ describe('operation-command-builder', () => {
   });
 
   it('adds option for response body output if operation specifies produces values', () => {
-    const vorpalInstance = vorpal();
+    vorpalInstance = vorpal();
     const options = {
       interactive: false,
       operations: {
@@ -67,7 +69,7 @@ describe('operation-command-builder', () => {
   });
 
   it('adds option for response content type if operation specifies produces values', () => {
-    const vorpalInstance = vorpal();
+    vorpalInstance = vorpal();
     const options = {
       interactive: false,
       operations: {
@@ -99,7 +101,7 @@ describe('operation-command-builder', () => {
   });
 
   it('adds options for optional parameters', () => {
-    const vorpalInstance = vorpal();
+    vorpalInstance = vorpal();
     const options = {
       interactive: false,
       operations: {
@@ -144,7 +146,7 @@ describe('operation-command-builder', () => {
   });
 
   it('uses specified parts as command name', () => {
-    const vorpalInstance = vorpal();
+    vorpalInstance = vorpal();
     const options = {
       interactive: false,
       operations: {
@@ -175,7 +177,7 @@ describe('operation-command-builder', () => {
   });
 
   it('uses operation summary as command description', () => {
-    const vorpalInstance = vorpal();
+    vorpalInstance = vorpal();
     const options = {
       interactive: false,
       operations: {
@@ -203,7 +205,7 @@ describe('operation-command-builder', () => {
   });
 
   it('sets alias from operation id if operation commands are being grouped', () => {
-    const vorpalInstance = vorpal();
+    vorpalInstance = vorpal();
     const options = {
       interactive: false,
       operations: {
@@ -231,7 +233,7 @@ describe('operation-command-builder', () => {
   });
 
   it('sets no alias if operation commands are not being grouped', () => {
-    const vorpalInstance = vorpal();
+    vorpalInstance = vorpal();
     const options = {
       interactive: false,
       operations: {
@@ -256,5 +258,9 @@ describe('operation-command-builder', () => {
     const command = builder.build(vorpalInstance, options, commandInfo);
 
     expect(command._aliases).not.toContain('foo-bar');
+  });
+
+  afterEach(() => {
+    vorpalInstance.ui.removeAllListeners();
   });
 });
