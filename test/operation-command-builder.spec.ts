@@ -19,7 +19,7 @@ describe('operation-command-builder', () => {
 
     const swaggerClientPromise = null;
 
-    const builder = new OperationCommandBuilder(swaggerClientPromise);
+    const builder = new OperationCommandBuilder();
 
     const commandInfo = {
       commandStringParts: [],
@@ -51,7 +51,7 @@ describe('operation-command-builder', () => {
 
     const swaggerClientPromise = null;
 
-    const builder = new OperationCommandBuilder(swaggerClientPromise);
+    const builder = new OperationCommandBuilder();
 
     const commandInfo = {
       commandStringParts: [],
@@ -80,7 +80,7 @@ describe('operation-command-builder', () => {
 
     const swaggerClientPromise = null;
 
-    const builder = new OperationCommandBuilder(swaggerClientPromise);
+    const builder = new OperationCommandBuilder();
 
     const commandInfo = {
       commandStringParts: [],
@@ -112,7 +112,7 @@ describe('operation-command-builder', () => {
 
     const swaggerClientPromise = null;
 
-    const builder = new OperationCommandBuilder(swaggerClientPromise);
+    const builder = new OperationCommandBuilder();
 
     const commandInfo = {
       commandStringParts: [],
@@ -157,7 +157,7 @@ describe('operation-command-builder', () => {
 
     const swaggerClientPromise = null;
 
-    const builder = new OperationCommandBuilder(swaggerClientPromise);
+    const builder = new OperationCommandBuilder();
 
     const commandInfo = {
       commandStringParts: ['foo', 'bar'],
@@ -188,7 +188,7 @@ describe('operation-command-builder', () => {
 
     const swaggerClientPromise = null;
 
-    const builder = new OperationCommandBuilder(swaggerClientPromise);
+    const builder = new OperationCommandBuilder();
 
     const commandInfo = {
       commandStringParts: [],
@@ -216,7 +216,7 @@ describe('operation-command-builder', () => {
 
     const swaggerClientPromise = null;
 
-    const builder = new OperationCommandBuilder(swaggerClientPromise);
+    const builder = new OperationCommandBuilder();
 
     const commandInfo = {
       commandStringParts: [],
@@ -244,7 +244,7 @@ describe('operation-command-builder', () => {
 
     const swaggerClientPromise = null;
 
-    const builder = new OperationCommandBuilder(swaggerClientPromise);
+    const builder = new OperationCommandBuilder();
 
     const commandInfo = {
       commandStringParts: [],
