@@ -10,8 +10,6 @@ import { Options } from './options';
 import { TextBuilder } from './text-builder';
 
 export class OperationCommandBuilder {
-  constructor(private swaggerClientPromise: Promise<any>) {}
-
   public build(vorpal, options: Options, commandInfo: OperationCommandInfo) {
     const commandString = buildCommandString(options, commandInfo);
 
@@ -87,7 +85,6 @@ export class OperationCommandBuilder {
 
     command.action(args => {
       const action = new OperationCommandAction(
-        this.swaggerClientPromise,
         commandInfo,
         vorpal.activeCommand
       );

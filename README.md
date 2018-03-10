@@ -152,7 +152,11 @@ swagger-petstore$ get-pet-by-id 1
 
 Each parameter defined in the operation's `parameters` object is mapped to an operation parameter in the CLI. They are handled as they are defined in the spec; parameters where `required = true` are required for the command to be executed, all others are optional.
 
-If the operation has a body parameter, the `body` parameter on the command is used to set the body content.
+If a body parameter is defined for the operation, it is possible to read the contents of a file directly the request body by specifying the path to the file prepended with the string `file@`:
+
+```
+swagger-petstore$ pet add-pet file@path/to/file
+```
 
 #### Options
 

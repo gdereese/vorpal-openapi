@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as ora from 'ora';
+import Swagger = require('swagger-client');
 
 import { ApiExecuteOptionsFactory } from './api-execute-options-factory';
 import * as commandOptionNames from './command-option-names';
@@ -8,48 +9,43 @@ import { OperationCommandInfo } from './operation-command-info';
 import { Options } from './options';
 
 export class OperationCommandAction {
-  constructor(
-    private swaggerClientPromise,
-    private commandInfo: OperationCommandInfo,
-    private command
-  ) {}
+  constructor(private commandInfo: OperationCommandInfo, private command) {}
 
   public run(args, options: Options): Promise<any> {
     const self = this;
 
-    return this.swaggerClientPromise.then(client => {
-      this.command.log();
+    this.command.log();
 
-      const executeOptionsFactory = new ApiExecuteOptionsFactory();
-      const executeOptions = executeOptionsFactory.create(
-        this.command,
-        this.commandInfo,
-        args
-      );
+    const executeOptionsFactory = new ApiExecuteOptionsFactory();
+    const executeOptions = executeOptionsFactory.create(
+      options.spec,
+      this.command,
+      this.commandInfo,
+      args
+    );
 
-      const spinner = ora('Sending request...');
-      spinner.start();
+    const spinner = ora('Sending request...');
+    spinner.start();
 
-      // TODO: change to return response string (instead of writing to log); perhaps commands could then be piped?
-      return client
-        .execute(executeOptions)
-        .then(response => {
-          return self.handleResponse(
-            response,
-            spinner,
-            this.command.parent.chalk.green,
-            args.options['to-file']
-          );
-        })
-        .catch(error => {
-          return self.handleResponse(
-            error.response,
-            spinner,
-            this.command.parent.chalk.red,
-            args.options['to-file']
-          );
-        });
-    });
+    const request = Swagger.buildRequest(executeOptions);
+
+    return Swagger.http(request)
+      .then(response => {
+        return self.handleResponse(
+          response,
+          spinner,
+          this.command.parent.chalk.green,
+          args.options['to-file']
+        );
+      })
+      .catch(error => {
+        return self.handleResponse(
+          error.response,
+          spinner,
+          this.command.parent.chalk.red,
+          args.options['to-file']
+        );
+      });
   }
 
   private handleResponse(
