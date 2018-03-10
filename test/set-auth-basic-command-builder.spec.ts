@@ -3,8 +3,10 @@ import * as vorpal from 'vorpal';
 import { SetAuthBasicCommandBuilder } from '../src/set-auth-basic-command-builder';
 
 describe('set-auth-basic-command-builder', () => {
+  let vorpalInstance = null;
+
   it('adds command for each basic scheme', () => {
-    const vorpalInstance = vorpal();
+    vorpalInstance = vorpal();
     const options = {
       interactive: false,
       operations: {
@@ -30,5 +32,9 @@ describe('set-auth-basic-command-builder', () => {
 
     expect(commands[0]._name).toBe('set-auth bar-auth');
     expect(commands[1]._name).toBe('set-auth foo-auth');
+  });
+
+  afterEach(() => {
+    vorpalInstance.ui.removeAllListeners();
   });
 });

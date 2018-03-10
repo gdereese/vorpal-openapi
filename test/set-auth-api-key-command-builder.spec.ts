@@ -3,8 +3,10 @@ import * as vorpal from 'vorpal';
 import { SetAuthApiKeyCommandBuilder } from '../src/set-auth-api-key-command-builder';
 
 describe('set-auth-api-key-command-builder', () => {
+  let vorpalInstance = null;
+
   it('adds command for each apiKey scheme', () => {
-    const vorpalInstance = vorpal();
+    vorpalInstance = vorpal();
     const options = {
       interactive: false,
       operations: {
@@ -30,5 +32,9 @@ describe('set-auth-api-key-command-builder', () => {
 
     expect(commands[0]._name).toBe('set-auth bar-auth');
     expect(commands[1]._name).toBe('set-auth foo-auth');
+  });
+
+  afterEach(() => {
+    vorpalInstance.ui.removeAllListeners();
   });
 });
