@@ -57,7 +57,7 @@ export class OperationCommandAction {
   ): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       const resultBuilder = new StringBuilder();
-      resultBuilder.append(`${response.status}  ${response.statusText}`);
+      resultBuilder.append(`${response.status} ${response.statusText}`);
       // if response is expected per the operation spec, display the response description
       const responseSpec = this.commandInfo.operation.responses[
         response.status
