@@ -1,4 +1,5 @@
 import * as _ from 'lodash';
+import * as StringBuilder from 'string-builder';
 
 import { CommandGroupTypes } from './command-group-types';
 import * as commandOptionNames from './command-option-names';
@@ -7,7 +8,6 @@ import { OperationCommandHelp } from './operation-command-help';
 import { OperationCommandInfo } from './operation-command-info';
 import { OperationCommandValidator } from './operation-command-validator';
 import { Options } from './options';
-import { TextBuilder } from './text-builder';
 
 export class OperationCommandBuilder {
   public build(vorpal, options: Options, commandInfo: OperationCommandInfo) {
@@ -40,7 +40,7 @@ export class OperationCommandBuilder {
       commandInfo.operation.consumes.length > 0
     ) {
       command.option(
-        '--' + commandOptionNames.REQUEST_CONTENT_TYPE + ' <mime-type>',
+        `--${commandOptionNames.REQUEST_CONTENT_TYPE} <mime-type>`,
         'desired MIME type of request body',
         commandInfo.operation.consumes
       );
@@ -52,7 +52,7 @@ export class OperationCommandBuilder {
       commandInfo.operation.produces.length > 0
     ) {
       command.option(
-        '--' + commandOptionNames.RESPONSE_CONTENT_TYPE + ' <mime-type>',
+        `--${commandOptionNames.RESPONSE_CONTENT_TYPE} <mime-type>`,
         'desired MIME type of response body',
         commandInfo.operation.produces
       );
@@ -64,7 +64,7 @@ export class OperationCommandBuilder {
       required: false
     });
     for (const parameter of optionalParameters) {
-      const optionString = '--' + parameter.name;
+      const optionString = `--${parameter.name}`;
       const optionDescription = parameter.description;
       const optionAutocomplete = parameter.items
         ? parameter.items.enum || null
@@ -99,17 +99,17 @@ function buildCommandString(
   options: Options,
   commandInfo: OperationCommandInfo
 ): string {
-  let commandString = '';
+  const commandStringBuilder = new StringBuilder();
 
-  commandString += commandInfo.commandStringParts.join(' ');
+  commandStringBuilder.append(commandInfo.commandStringParts.join(' '));
 
   // append required parameters to command string
   const requiredParameters = _.filter(commandInfo.operation.parameters, {
     required: true
   });
   for (const parameter of requiredParameters) {
-    commandString += ' <' + parameter.name + '>';
+    commandStringBuilder.append(` <${parameter.name}>`);
   }
 
-  return commandString;
+  return commandStringBuilder.toString();
 }

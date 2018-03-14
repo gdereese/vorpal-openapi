@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as ora from 'ora';
+import * as StringBuilder from 'string-builder';
 import Swagger = require('swagger-client');
 
 import { ApiExecuteOptionsFactory } from './api-execute-options-factory';
@@ -55,15 +56,17 @@ export class OperationCommandAction {
     bodyPath: string
   ): Promise<any> {
     return new Promise<any>((resolve, reject) => {
-      let result = response.status + ' ' + response.statusText;
+      const resultBuilder = new StringBuilder();
+      resultBuilder.append(`${response.status}  ${response.statusText}`);
       // if response is expected per the operation spec, display the response description
       const responseSpec = this.commandInfo.operation.responses[
         response.status
       ];
       if (responseSpec && responseSpec.description) {
-        result += ': ' + responseSpec.description;
+        resultBuilder.append(`: ${responseSpec.description}`);
       }
 
+      const result = resultBuilder.toString();
       if (response.status >= 200 && response.status <= 299) {
         spinner.succeed(chalkColor(result));
       } else {

@@ -1,6 +1,7 @@
+import * as StringBuilder from 'string-builder';
+
 import { Options } from './options';
 import * as stringUtils from './string-utils';
-import { TextBuilder } from './text-builder';
 import { IVorpalBuilder } from './vorpal-builder';
 
 export class SplashWriter implements IVorpalBuilder {
@@ -12,18 +13,16 @@ export class SplashWriter implements IVorpalBuilder {
       return;
     }
 
-    const splashBuilder = new TextBuilder();
+    const splashBuilder = new StringBuilder();
 
-    const version = options.spec.info.version
-      ? 'Version ' + options.spec.info.version
-      : '';
-    const heading = stringUtils.joinNonEmpty(
-      [options.spec.info.title, version],
-      '\n'
+    splashBuilder.append(
+      options.spec.info.title ? `\n${options.spec.info.title}` : ''
     );
-    splashBuilder.addParagraph(heading);
+    splashBuilder.append(
+      options.spec.info.version ? `\nVersion ${options.spec.info.version}` : ''
+    );
 
-    splashBuilder.addLine();
+    splashBuilder.appendLine();
 
     vorpal.log(splashBuilder.toString());
   }

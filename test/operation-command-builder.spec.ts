@@ -134,7 +134,7 @@ describe('operation-command-builder', () => {
     const command = builder.build(vorpalInstance, options, commandInfo);
 
     const parameter = commandInfo.operation.parameters[0];
-    const option = _.find(command.options, { long: '--' + parameter.name });
+    const option = _.find(command.options, { long: `--${parameter.name}` });
 
     expect(option).toBeTruthy();
 
@@ -170,9 +170,9 @@ describe('operation-command-builder', () => {
     const command = builder.build(vorpalInstance, options, commandInfo);
 
     expect(command._name).toBe(
-      commandInfo.commandStringParts[0] +
-        ' ' +
+      `${commandInfo.commandStringParts[0]} ${
         commandInfo.commandStringParts[1]
+      }`
     );
   });
 

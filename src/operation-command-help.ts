@@ -1,13 +1,13 @@
 import * as _ from 'lodash';
+import * as StringBuilder from 'string-builder';
 
 import { OperationCommandInfo } from './operation-command-info';
-import { TextBuilder } from './text-builder';
 
 export class OperationCommandHelp {
   constructor(private command, private commandInfo: OperationCommandInfo) {}
 
   public build(command: string): string {
-    const helpBuilder = new TextBuilder();
+    const helpBuilder = new StringBuilder();
 
     // add the operation summary to the command description so it can be
     // displayed using the default help logic, then reset to the original
@@ -17,10 +17,11 @@ export class OperationCommandHelp {
       this.commandInfo.operation.description &&
       this.commandInfo.operation.description.length > 0
     ) {
-      this.command._description +=
-        '\n\n  ' + this.commandInfo.operation.description;
+      this.command._description += `\n\n  ${
+        this.commandInfo.operation.description
+      }`;
     }
-    helpBuilder.add(this.command.helpInformation());
+    helpBuilder.append(this.command.helpInformation());
     this.command._description = oldDescription;
 
     // list security requirements (and any required scopes)
@@ -28,10 +29,10 @@ export class OperationCommandHelp {
       this.commandInfo.operation.security &&
       this.commandInfo.operation.security.length > 0
     ) {
-      let securityList = '';
+      const securityListBuilder = new StringBuilder();
 
       for (const requirement of this.commandInfo.operation.security) {
-        securityList += '    - ';
+        securityListBuilder.append('    - ');
 
         const andSchemeNames = _.keys(requirement);
         for (
@@ -42,20 +43,22 @@ export class OperationCommandHelp {
           const name = andSchemeNames[nameIndex];
 
           if (nameIndex > 0) {
-            securityList += '\n      ';
+            securityListBuilder.append('\n      ');
           }
 
-          securityList += name;
+          securityListBuilder.append(name);
 
           const scopes = requirement[name];
           if (scopes && scopes.length > 0) {
-            securityList += ' (' + scopes.join(', ') + ')';
+            securityListBuilder.append(` (${scopes.join(', ')})`);
           }
         }
       }
 
-      helpBuilder.addParagraph('  Required Security:\n\n' + securityList, '\n');
-      helpBuilder.addLine();
+      helpBuilder.append(
+        `\n  Required Security:\n\n${securityListBuilder.toString()}`
+      );
+      helpBuilder.appendLine();
     }
 
     return helpBuilder.toString();

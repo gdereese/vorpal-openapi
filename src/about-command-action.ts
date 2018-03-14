@@ -1,38 +1,36 @@
 import * as _ from 'lodash';
+import * as StringBuilder from 'string-builder';
 
 import * as stringUtils from './string-utils';
-import { TextBuilder } from './text-builder';
 
 export class AboutCommandAction {
   constructor(private command) {}
 
   public run(infoSpec): Promise<any> {
-    const infoBuilder = new TextBuilder();
+    const infoBuilder = new StringBuilder();
 
-    infoBuilder.addLine();
+    infoBuilder.append(infoSpec.title ? `\n${infoSpec.title}` : '');
+    infoBuilder.append(infoSpec.version ? `\nVersion ${infoSpec.version}` : '');
 
-    const version = infoSpec.version ? 'Version ' + infoSpec.version : '';
-    const heading = stringUtils.joinNonEmpty([infoSpec.title, version], '\n');
-    infoBuilder.addParagraph(heading);
-
-    infoBuilder.addParagraph(infoSpec.description);
+    infoBuilder.append(
+      infoSpec.description ? `\n\n${infoSpec.description}` : ''
+    );
 
     if (infoSpec.contact) {
-      let contact = stringUtils.joinNonEmpty(
+      const contact = stringUtils.joinNonEmpty(
         [infoSpec.contact.name, infoSpec.contact.url, infoSpec.contact.email],
         ' • '
       );
-      if (contact.length > 0) {
-        contact = 'Contact:\n' + contact;
-      }
-      infoBuilder.addParagraph(contact);
+      infoBuilder.append(contact.length > 0 ? `\n\nContact:\n${contact}` : '');
     }
 
-    if (infoSpec.termsOfService) {
-      infoBuilder.addParagraph('Terms of Service:\n' + infoSpec.termsOfService);
-    }
+    infoBuilder.append(
+      infoSpec.termsOfService
+        ? `\n\nTerms of Service:\n${infoSpec.termsOfService}`
+        : ''
+    );
 
-    infoBuilder.addLine();
+    infoBuilder.appendLine();
 
     this.command.log(infoBuilder.toString());
 

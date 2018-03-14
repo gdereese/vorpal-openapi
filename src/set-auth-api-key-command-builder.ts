@@ -16,10 +16,8 @@ export class SetAuthApiKeyCommandBuilder implements IVorpalBuilder {
 
       const command = vorpal
         .command(
-          'set-auth ' + _.kebabCase(schemeKey) + ' <value>',
-          "Set API key authorization value for security scheme '" +
-            schemeKey +
-            "'"
+          `set-auth ${_.kebabCase(schemeKey)} <value>`,
+          `Set API key authorization value for security scheme '${schemeKey}'`
         )
         .action(args => {
           const action = new SetAuthStringAction(vorpal.activeCommand);

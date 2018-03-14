@@ -14,8 +14,6 @@ const specPathOrUrlArgIndex = 2;
 
 const specPathOrUrl = process.argv[specPathOrUrlArgIndex];
 
-console.log();
-
 const specProvider = new SpecProvider();
 specProvider
   .getSpec(specPathOrUrl)

@@ -30,11 +30,8 @@ export class OperationCommandsBuilder implements IVorpalBuilder {
     const sortedCommandInfos = _.sortBy(
       commandInfos,
       (commandInfo: OperationCommandInfo) => {
-        return (
-          commandInfo.commandStringParts[0] +
-          ' ' +
-          (commandInfo.commandStringParts[1] || '')
-        );
+        return `${commandInfo.commandStringParts[0]} ${commandInfo
+          .commandStringParts[1] || ''}`;
       }
     );
 

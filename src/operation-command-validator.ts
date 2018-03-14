@@ -17,9 +17,9 @@ export class OperationCommandValidator {
     ) {
       this.vorpal.log(
         this.vorpal.chalk.yellow(
-          'Warning: MIME type ' +
-            args.options[commandOptionNames.REQUEST_CONTENT_TYPE] +
-            ' is not listed as a possible request content type.  It may not be accepted or honored by the server.'
+          `Warning: MIME type ${
+            args.options[commandOptionNames.REQUEST_CONTENT_TYPE]
+          } is not listed as a possible request content type.  It may not be accepted or honored by the server.`
         )
       );
     }
@@ -34,9 +34,9 @@ export class OperationCommandValidator {
     ) {
       this.vorpal.log(
         this.vorpal.chalk.yellow(
-          'Warning: MIME type ' +
-            args.options[commandOptionNames.RESPONSE_CONTENT_TYPE] +
-            ' is not listed as a possible response content type.  It may not be accepted or honored by the server.'
+          `Warning: MIME type ${
+            args.options[commandOptionNames.RESPONSE_CONTENT_TYPE]
+          } is not listed as a possible response content type.  It may not be accepted or honored by the server.`
         )
       );
     }

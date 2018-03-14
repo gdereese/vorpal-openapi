@@ -42,13 +42,9 @@ export class SpecProvider {
       .catch(err => {
         spinner.stop();
 
-        const errorMessage =
-          "Error retrieving '" +
-          url +
-          "': " +
-          err.response.status +
-          ' ' +
-          err.response.statusText;
+        const errorMessage = `Error retrieving '${url}': ${
+          err.response.status
+        } ${err.response.statusText}`;
 
         throw errorMessage;
       });
