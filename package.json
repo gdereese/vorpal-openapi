@@ -34,9 +34,9 @@
   },
   "devDependencies": {
     "@types/jasmine": "2.8.6",
-    "@types/lodash": "4.14.104",
+    "@types/lodash": "4.14.105",
     "@types/node": "9.4.7",
-    "abogado": "1.0.0",
+    "abogado": "1.0.4",
     "jasmine-ts": "0.2.1",
     "prettier": "1.11.1",
     "tslint": "5.9.1",
