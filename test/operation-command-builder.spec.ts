@@ -31,7 +31,9 @@ describe('operation-command-builder', () => {
 
     const command = builder.build(vorpalInstance, options, commandInfo);
 
-    const option = _.find(command.options, { long: '--request-content-type' });
+    const option: any = _.find(command.options, {
+      long: '--request-content-type'
+    });
 
     expect(option).toBeTruthy();
 
@@ -63,7 +65,7 @@ describe('operation-command-builder', () => {
 
     const command = builder.build(vorpalInstance, options, commandInfo);
 
-    const option = _.find(command.options, { long: '--to-file' });
+    const option: any = _.find(command.options, { long: '--to-file' });
 
     expect(option).toBeTruthy();
   });
@@ -92,7 +94,9 @@ describe('operation-command-builder', () => {
 
     const command = builder.build(vorpalInstance, options, commandInfo);
 
-    const option = _.find(command.options, { long: '--response-content-type' });
+    const option: any = _.find(command.options, {
+      long: '--response-content-type'
+    });
 
     expect(option).toBeTruthy();
 
@@ -134,7 +138,9 @@ describe('operation-command-builder', () => {
     const command = builder.build(vorpalInstance, options, commandInfo);
 
     const parameter = commandInfo.operation.parameters[0];
-    const option = _.find(command.options, { long: `--${parameter.name}` });
+    const option: any = _.find(command.options, {
+      long: `--${parameter.name}`
+    });
 
     expect(option).toBeTruthy();
 
