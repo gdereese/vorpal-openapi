@@ -54,7 +54,7 @@ export class ApiExecuteOptionsFactory {
     }
 
     // body parameter can be read in from a file if a value is specified containing a special string token
-    const bodyParam = _.find(operationSpec.parameters, { in: 'body' });
+    const bodyParam: any = _.find(operationSpec.parameters, { in: 'body' });
     if (bodyParam) {
       const bodyParamValue: string = args[bodyParam.name];
 

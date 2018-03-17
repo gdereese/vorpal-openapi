@@ -60,9 +60,12 @@ export class OperationCommandBuilder {
 
     // add option for each optional parameter,
     // for enum parameters, add an autocomplete for each possible value
-    const optionalParameters = _.filter(commandInfo.operation.parameters, {
-      required: false
-    });
+    const optionalParameters: any[] = _.filter(
+      commandInfo.operation.parameters,
+      {
+        required: false
+      }
+    );
     for (const parameter of optionalParameters) {
       const optionString = `--${parameter.name}`;
       const optionDescription = parameter.description;
@@ -104,7 +107,7 @@ function buildCommandString(
   commandStringBuilder.append(commandInfo.commandStringParts.join(' '));
 
   // append required parameters to command string
-  const requiredParameters = _.filter(commandInfo.operation.parameters, {
+  const requiredParameters: any[] = _.filter(commandInfo.operation.parameters, {
     required: true
   });
   for (const parameter of requiredParameters) {
