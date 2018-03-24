@@ -24,6 +24,7 @@
   "files": ["dist/*.js"],
   "scripts": {
     "build": "npm run-script lint && tsc",
+    "coverage": "nyc -r lcov -e .ts -x \"*.spec.ts\" npm test",
     "license-check": "abogado",
     "lint": "tslint --project tsconfig.json",
     "postversion": "git push && git push --tags",
@@ -38,6 +39,7 @@
     "@types/node": "9.4.7",
     "abogado": "1.0.4",
     "jasmine-ts": "0.2.1",
+    "nyc": "11.6.0",
     "prettier": "1.11.1",
     "sonar-scanner": "3.0.3",
     "tslint": "5.9.1",

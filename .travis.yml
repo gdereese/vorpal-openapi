@@ -25,7 +25,7 @@ jobs:
   include:
     - stage: Analyze
       node_js: 'node'
-      script: sonar-scanner
+      script: npm run-script coverage && sonar-scanner
     - stage: Publish
       node_js: 'node'
       deploy:
