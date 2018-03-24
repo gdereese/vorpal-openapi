@@ -1,5 +1,14 @@
 language: node_js
 
+addons:
+  sonarcloud:
+    organization: $SONARCLOUD_ORG_KEY
+    token:
+      secure: $SONARCLOUD_TOKEN
+
+jdk:
+  - oraclejdk8
+
 node_js:
   - 'node'
   - '8'
@@ -7,10 +16,16 @@ node_js:
   
 script: 
   - npm test
-  - npm run-script license-check
+
+cache:
+  directories:
+    - '$HOME/.sonar/cache'
 
 jobs:
   include:
+    - stage: Analyze
+      node_js: 'node'
+      script: sonar-scanner
     - stage: Publish
       node_js: 'node'
       deploy:
