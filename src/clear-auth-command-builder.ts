@@ -9,8 +9,6 @@ export class ClearAuthCommandBuilder implements IVorpalBuilder {
     const commands = [];
 
     for (const schemeKey of _.keys(options.spec.securityDefinitions)) {
-      const scheme = options.spec.securityDefinitions[schemeKey];
-
       const command = vorpal
         .command(
           `clear-auth ${_.kebabCase(schemeKey)}`,
