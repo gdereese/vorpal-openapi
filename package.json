@@ -1,8 +1,7 @@
 {
   "name": "vorpal-openapi",
   "version": "0.6.1",
-  "description":
-    "Vorpal extension that creates a CLI for invoking API endpoints defined with an OpenAPI/Swagger specification.",
+  "description": "Vorpal extension that creates a CLI for invoking API endpoints defined with an OpenAPI/Swagger specification.",
   "keywords": [
     "typescript",
     "vorpal",
@@ -21,37 +20,39 @@
   },
   "main": "dist/index.js",
   "bin": "dist/index.js",
-  "files": ["dist/*.js"],
+  "files": [
+    "dist/*.js"
+  ],
   "scripts": {
     "build": "npm run-script lint && tsc",
     "coverage": "nyc --extension=.ts --reporter=lcov npm test",
     "license-check": "abogado",
     "lint": "tslint --project tsconfig.json",
     "postversion": "git push && git push --tags",
-    "prepublishOnly": "npm run-script lint && tsc",
+    "prepublishOnly": "npm run-script build",
     "preversion": "npm test",
     "version": "npm run-script build",
     "test": "jasmine-ts test/**/*.spec.ts"
   },
   "devDependencies": {
     "@types/jasmine": "2.8.6",
-    "@types/lodash": "4.14.105",
+    "@types/lodash": "4.14.106",
     "@types/node": "9.4.7",
-    "abogado": "1.0.4",
+    "abogado": "1.0.5",
     "jasmine-ts": "0.2.1",
     "nyc": "11.6.0",
     "prettier": "1.11.1",
     "sonar-scanner": "3.0.3",
     "tslint": "5.9.1",
     "tslint-config-prettier": "1.10.0",
-    "typescript": "2.7.2"
+    "typescript": "2.8.1"
   },
   "dependencies": {
     "axios": "0.18.0",
     "lodash": "4.17.5",
     "ora": "2.0.0",
     "string-builder": "0.1.4",
-    "swagger-client": "3.5.1",
+    "swagger-client": "3.5.2",
     "vorpal": "1.12.0"
   }
 }
