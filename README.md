@@ -33,15 +33,15 @@ This package has been tested on the following versions of Node.js:
 * 8.x
 * 9.x
 
-## Installation
+## Installatio using NPM
 
-### Install locally:
+### Install as a local dependency
 
 ```
 npm install vorpal-openapi
 ```
 
-### Install globally:
+### Install globally
 
 ```
 npm install vorpal-openapi -g
