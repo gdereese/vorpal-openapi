@@ -16,6 +16,7 @@
   "plugins": ["jasmine", "node", "prettier"],
   "rules": {
     "no-console": 0,
+    "no-process-exit": 0,
     "jasmine/new-line-before-expect": 0,
     "node/shebang": 0
   }

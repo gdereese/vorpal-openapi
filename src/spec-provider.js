@@ -1,5 +1,6 @@
 const axios = require('axios');
 const fs = require('fs');
+const isUrl = require('is-url');
 const ora = require('ora');
 
 function specProvider(pathOrUrl) {
@@ -18,7 +19,13 @@ function getSpecFromPath(path) {
   return new Promise((resolve, reject) => {
     fs.readFile(path, (err, data) => {
       if (err) {
-        reject(err.message);
+        switch (err.code) {
+          case 'ENOENT':
+            reject(new Error(`Spec file '${path}' was not found.`));
+            break;
+          default:
+            reject(err);
+        }
       } else {
         resolve(JSON.parse(data.toString()));
       }
@@ -39,20 +46,12 @@ function getSpecFromUrl(url) {
     .catch(err => {
       spinner.stop();
 
-      const errorMessage = `Error retrieving '${url}': ${err.response.status} ${
-        err.response.statusText
-      }`;
-
-      throw errorMessage;
+      throw new Error(
+        `Error retrieving '${url}': ${err.response.status} ${
+          err.response.statusText
+        }`
+      );
     });
-}
-
-function isUrl(str) {
-  const urlPattern = new RegExp(
-    '^(?:\\w+:)?//([^\\s.]+\\.\\S{2}|localhost[\\:?\\d]*)\\S*$'
-  );
-
-  return urlPattern.test(str);
 }
 
 module.exports = specProvider;

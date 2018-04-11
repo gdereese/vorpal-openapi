@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const chalk = require('chalk');
 const _ = require('lodash');
 const vorpal = require('vorpal');
 
@@ -33,11 +34,11 @@ specProvider(specPathOrUrl)
       vorpalInstance.show();
     }
   })
-  .catch(errorMessage => {
-    console.error(errorMessage);
+  .catch(error => {
+    console.error(chalk.red(`ERROR: ${error.message}`));
     console.log();
 
-    throw new Error(errorMessage);
+    process.exit(1);
   });
 
 module.exports = extension;
