@@ -1,0 +1,22 @@
+{
+  "env": {
+    "es6": true,
+    "jasmine": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:jasmine/recommended",
+    "plugin:node/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "plugins": ["jasmine", "node", "prettier"],
+  "rules": {
+    "no-console": 0,
+    "jasmine/new-line-before-expect": 0,
+    "node/shebang": 0
+  }
+}

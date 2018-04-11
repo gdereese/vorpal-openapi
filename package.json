@@ -27,28 +27,29 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "npm run-script lint && tsc",
-    "coverage": "nyc --extension=.ts --reporter=lcov npm test",
+    "build": "npm run-script lint && babel src -d dist",
+    "coverage": "nyc --reporter=lcov npm test",
     "license-check": "abogado",
-    "lint": "tslint --project tsconfig.json",
+    "lint": "eslint src/** test/**",
     "postversion": "git push && git push --tags",
     "prepublishOnly": "npm run-script build",
     "preversion": "npm test",
     "version": "npm run-script build",
-    "test": "jasmine-ts test/**/*.spec.ts"
+    "test": "jasmine test/**/*.spec.js"
   },
   "devDependencies": {
-    "@types/jasmine": "2.8.6",
-    "@types/lodash": "4.14.106",
-    "@types/node": "9.6.2",
     "abogado": "2.0.0",
-    "jasmine-ts": "0.2.1",
+    "babel-cli": "6.26.0",
+    "babel-preset-env": "1.6.1",
+    "eslint": "4.19.1",
+    "eslint-config-prettier": "2.9.0",
+    "eslint-plugin-jasmine": "2.9.3",
+    "eslint-plugin-node": "6.0.1",
+    "eslint-plugin-prettier": "2.6.0",
+    "jasmine": "3.1.0",
     "nyc": "11.6.0",
     "prettier": "1.11.1",
-    "sonar-scanner": "3.0.3",
-    "tslint": "5.9.1",
-    "tslint-config-prettier": "1.10.0",
-    "typescript": "2.8.1"
+    "sonar-scanner": "3.0.3"
   },
   "dependencies": {
     "axios": "0.18.0",

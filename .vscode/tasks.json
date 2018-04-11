@@ -7,7 +7,7 @@
       "identifier": "build",
       "type": "npm",
       "script": "build",
-      "problemMatcher": ["$tslint5", "$tsc"],
+      "problemMatcher": ["$eslint-stylish"],
       "group": {
         "kind": "build",
         "isDefault": true

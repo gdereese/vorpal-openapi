@@ -7,10 +7,21 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
+      "name": "Debug Program",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/dist/index.js",
-      "args": ["https://api.ctuit.com/api/swagger/v1/swagger.json"]
+      "program": "${workspaceFolder}/src/index.js",
+      "args": ["./test/fixtures/petstore_swagger.json"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Tests",
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/node_modules/jasmine/bin/jasmine.js",
+      "args": ["test/**/*.spec.js"],
+      "protocol": "inspector",
+      "outputCapture": "std"
     }
   ]
 }

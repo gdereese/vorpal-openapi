@@ -76,10 +76,10 @@ A CLI can also be created by utilizing the vorpal plugin provided in this packag
 This example demonstrates how to use [axios](https://github.com/axios/axios) to retrieve a Swagger spec by URL and construct a CLI:
 
 ```javascript
-const axios = require('axios');
-const vorpal = require('vorpal');
+const axios = require(('axios'););
+const vorpal = require(('vorpal'););
 
-const VorpalOpenApiExtension = require('vorpal-openapi');
+const VorpalOpenApiExtension = require(('vorpal-openapi'););
 
 axios.get('http://url/to/swagger.json').then(function(response) {
   const options = {
