@@ -1,6 +1,6 @@
 const vorpal = require('vorpal');
 
-const SetAuthStringCommandBuilder = require('../src/set-auth-string-command-builder');
+const setAuthStringCommandBuilder = require('../src/set-auth-string-command-builder');
 
 describe('set-auth-string-command-builder', () => {
   let vorpalInstance = null;
@@ -26,9 +26,11 @@ describe('set-auth-string-command-builder', () => {
       }
     };
 
-    const builder = new SetAuthStringCommandBuilder('apiKey');
-
-    const commands = builder.build(vorpalInstance, options);
+    const commands = setAuthStringCommandBuilder(
+      vorpalInstance,
+      options,
+      'apiKey'
+    );
 
     expect(commands.length).toBe(1);
     expect(commands[0]._name).toBe('set-auth bar-auth');
