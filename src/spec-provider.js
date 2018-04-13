@@ -2,17 +2,24 @@ const axios = require('axios');
 const fs = require('fs');
 const isUrl = require('is-url');
 const ora = require('ora');
+const SwaggerParser = require('swagger-parser');
 
 function specProvider(pathOrUrl) {
   if (!pathOrUrl) {
     return Promise.reject('Spec path or URL was not specified.');
   }
 
-  if (isUrl(pathOrUrl)) {
-    return getSpecFromUrl(pathOrUrl);
-  } else {
-    return getSpecFromPath(pathOrUrl);
-  }
+  const getSpec = isUrl(pathOrUrl)
+    ? getSpecFromUrl(pathOrUrl)
+    : getSpecFromPath(pathOrUrl);
+
+  return getSpec
+    .then(spec => {
+      return Promise.all([spec, SwaggerParser.validate(spec)]);
+    })
+    .then(results => {
+      return results[0];
+    });
 }
 
 function getSpecFromPath(path) {

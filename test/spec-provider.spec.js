@@ -8,8 +8,8 @@ describe('spec-provider', () => {
       .then(spec => {
         expect(spec).toBeTruthy();
       })
-      .catch(errorMessage => {
-        fail(errorMessage);
+      .catch(error => {
+        fail(error);
       });
   });
 
@@ -20,8 +20,8 @@ describe('spec-provider', () => {
       .then(spec => {
         expect(spec).toBeTruthy();
       })
-      .catch(errorMessage => {
-        fail(errorMessage);
+      .catch(error => {
+        fail(error);
       });
   });
 
@@ -32,8 +32,8 @@ describe('spec-provider', () => {
       .then(() => {
         fail('expected error to be thrown');
       })
-      .catch(errorMessage => {
-        expect(errorMessage).toBeTruthy();
+      .catch(error => {
+        expect(error).toBeTruthy();
       });
   });
 
@@ -44,8 +44,8 @@ describe('spec-provider', () => {
       .then(() => {
         fail('expected error to be thrown');
       })
-      .catch(errorMessage => {
-        expect(errorMessage).toBeTruthy();
+      .catch(error => {
+        expect(error).toBeTruthy();
       });
   });
 
@@ -56,8 +56,20 @@ describe('spec-provider', () => {
       .then(() => {
         fail('expected error to be thrown');
       })
-      .catch(errorMessage => {
-        expect(errorMessage).toBeTruthy();
+      .catch(error => {
+        expect(error).toBeTruthy();
+      });
+  });
+
+  it('throws error is spec is not valid', () => {
+    const path = './test/fixtures/petstore_swagger_invalid.json';
+
+    specProvider(path)
+      .then(() => {
+        fail('expected error to be thrown');
+      })
+      .catch(error => {
+        expect(error).toBeTruthy();
       });
   });
 });
